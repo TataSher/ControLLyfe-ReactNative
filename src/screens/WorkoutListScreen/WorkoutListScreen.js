@@ -13,6 +13,7 @@ const WorkoutList = ( props ) => {
 const WorkoutListScreen = ( {navigation} ) => {
 
   const [workouts, setWorkouts] = useState([])
+  const [pressed, setPressed] = useState(false)
 
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
@@ -30,8 +31,8 @@ const WorkoutListScreen = ( {navigation} ) => {
     <ScrollView>
       <WorkoutList workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
-    <TouchableOpacity onPress={ () => navigation.navigate('Add New Workout')}>
-      <AddNewWorkoutButton style={styles.button} color={'coral'} height={75} />
+    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout');}}>
+      <AddNewWorkoutButton style={styles.button} color={pressed == true ? 'red' : 'blue'}/>
     </TouchableOpacity>
     </View>
   )
@@ -40,13 +41,11 @@ const WorkoutListScreen = ( {navigation} ) => {
 const styles = StyleSheet.create({
   bruh: {
     borderRadius: 5,
-    borderColor: 'white',
-    backgroundColor: 'white',
     flex: 1,
   },
   button: {
     position: 'absolute', 
-    bottom: 30, right:30, 
+    bottom: 50, right:30, 
     shadowColor:'black', 
     shadowRadius: 8, 
     shadowOffset: {width: 5, height: 5}, 

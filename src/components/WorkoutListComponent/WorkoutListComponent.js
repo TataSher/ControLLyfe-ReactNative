@@ -15,7 +15,7 @@ const WorkoutListComponent = ({
 const styles = StyleSheet.create({
   title: {
     color: 'darkgray',
-    backgroundColor: 'white',
+    fontSize: 32,
     margin: 16,
   }
 })
