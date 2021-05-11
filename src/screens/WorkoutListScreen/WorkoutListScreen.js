@@ -1,12 +1,23 @@
-import React, { useEffect } from 'react';
-import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { WorkoutListComponent } from '../../components';
+import { AddNewWorkoutButton } from '../../SVGs';
+
+const WorkoutList = ( props ) => {
+  const {workouts = [], getWorkouts, route} = props
+
+  return workouts.map((workout) => <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />)
+}
 
 const WorkoutListScreen = ( {navigation} ) => {
 
+  const [workouts, setWorkouts] = useState([])
+
   const getWorkouts = async() => {
-    const workout = await axios.get('http://localhost:3000/workout')
-    console.log(workout.data)
+    const workouts = await axios.get('http://localhost:3000/workout')
+    setWorkouts(workouts.data)
+    console.log(workouts.data)
   }
 
   useEffect(() => {
@@ -15,14 +26,14 @@ const WorkoutListScreen = ( {navigation} ) => {
   }, [])
 
   return(
-    <ScrollView style={styles.bruh}>
-      <Text> Hello? </Text>
-      <Text style={styles.bottom}> At the bottom </Text>
-      <Button
-      title="Add"
-      onPress={ () => navigation.navigate('Add New Workout')}
-      />
+    <View style={{flex: 1, position: 'relative'}}>
+    <ScrollView>
+      <WorkoutList workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
+    <TouchableOpacity onPress={ () => navigation.navigate('Add New Workout')}>
+      <AddNewWorkoutButton style={styles.button} color={'coral'} height={75} />
+    </TouchableOpacity>
+    </View>
   )
 }
 
@@ -33,9 +44,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
   },
-  bottom: {
-    marginTop: 500,
-  }
+  button: {
+    position: 'absolute', 
+    bottom: 30, right:30, 
+    shadowColor:'black', 
+    shadowRadius: 8, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.3
+  },
 })
 
 export { WorkoutListScreen }
