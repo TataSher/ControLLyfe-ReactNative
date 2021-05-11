@@ -14,6 +14,11 @@ Or scan the QR code with your phone
 
 run npm install axios
 
+### for our navigation
+
+npm install @react-navigation/navigate
+npm install @react-navigation/stack
+
 
 
 
