@@ -19,6 +19,10 @@ run npm install axios
 npm install @react-navigation/navigate
 npm install @react-navigation/stack
 
+## for our get/post/... requests
+
+npm install axios
+
 
 
 

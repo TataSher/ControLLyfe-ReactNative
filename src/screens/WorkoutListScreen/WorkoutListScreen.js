@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
 
 const WorkoutListScreen = ( {navigation} ) => {
 
-  console.log(navigation)
+  const getWorkouts = async() => {
+    const workout = await axios.get('http://localhost:3000/workout')
+    console.log(workout.data)
+  }
+
+  useEffect(() => {
+    getWorkouts()
+    console.log('triggered')
+  }, [])
 
   return(
     <ScrollView style={styles.bruh}>
