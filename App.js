@@ -19,10 +19,6 @@ export default function App() {
           </Stack.Screen> 
       </Stack.Navigator>
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   <WorkoutListScreen/>
-    //   <Text>Happy!</Text>
-    // </View>
   );
 }
 
