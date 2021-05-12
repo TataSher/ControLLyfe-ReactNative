@@ -1,1 +1,2 @@
-export * from './WorkoutListComponent'
+export * from './WorkoutListComponent';
+export * from './AddExercizeComponent';

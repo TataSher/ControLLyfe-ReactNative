@@ -1,9 +1,13 @@
 import * as React from "react"
 import Svg, { Rect, Path } from "react-native-svg"
 
+// SVG made in adobe illustrator
+
 function AddNewWorkoutButton(props) {
 
+  // These props can now be called/changed in the files, paths can be in here as well
   const { width=80, height=24, fill="#009fe3", color="#fff" } = props
+
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

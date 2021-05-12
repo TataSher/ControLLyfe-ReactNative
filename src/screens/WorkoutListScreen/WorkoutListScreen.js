@@ -18,12 +18,10 @@ const WorkoutListScreen = ( {navigation} ) => {
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
     setWorkouts(workouts.data)
-    console.log(workouts.data)
   }
 
   useEffect(() => {
     getWorkouts()
-    console.log('triggered')
   }, [])
 
   return(
