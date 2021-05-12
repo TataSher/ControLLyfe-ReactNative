@@ -21,10 +21,10 @@ const WorkoutListScreen = ( {navigation} ) => {
   }
 
   useEffect(() => {
-    navigation.addListener('focus', () => {
+    // navigation.addListener('focus', () => {
       getWorkouts();
-    });
-  }, [navigation])
+    // });
+  }, [])
 
   return(
     <View style={{flex: 1, position: 'relative'}}>

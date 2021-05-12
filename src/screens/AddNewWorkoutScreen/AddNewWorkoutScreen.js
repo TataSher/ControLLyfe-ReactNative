@@ -46,6 +46,9 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
     console.log(exercizes)
   }
 
+  const secondsArray = [60, 50, 40, 30, 20, 10, 0]
+  const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+
   return(
     <View style={{flex: 1, position: 'relative'}}>
       <ScrollView>
@@ -59,7 +62,8 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
          <KeyboardAvoidingView>
     <View style={styles.exercizeInput}>
       <TextInput
-      placeholder="Exercise"
+      placeholder="Exercise name"
+      style={{fontSize: 24}}
       onChangeText={(text) => setExercizeTitle(text)}
       value={exercizeTitle}
       />
@@ -70,17 +74,9 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
         onValueChange={(itemValue) =>
           setMinutes(itemValue)
         }>
-          <Picker.Item label='60' value={3600}></Picker.Item>
-          <Picker.Item label='45' value={2700}></Picker.Item>
-          <Picker.Item label='30' value={1800}></Picker.Item>
-          <Picker.Item label='15' value={900}></Picker.Item>
-          <Picker.Item label='10' value={600}></Picker.Item>
-          <Picker.Item label='05' value={300}></Picker.Item>
-          <Picker.Item label='04' value={240}></Picker.Item>
-          <Picker.Item label='03' value={180}></Picker.Item>
-          <Picker.Item label='02' value={120}></Picker.Item>
-          <Picker.Item label='01' value={60}></Picker.Item>
-          <Picker.Item label='00' value={0}></Picker.Item>
+            {minutesArray.map((minute) => {
+             return <Picker.Item label={`${minute}`} value={minute} />
+            })}
       </Picker>
       <Picker
         style={{backgroundColor: 'white', flex: 1}}
@@ -88,12 +84,9 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
         onValueChange={(itemValue) =>
           setSeconds(itemValue)
         }>
-          <Picker.Item label='50' value={50}/>
-          <Picker.Item label='40' value={40}></Picker.Item>
-          <Picker.Item label='30' value={30}></Picker.Item>
-          <Picker.Item label='20' value={20}></Picker.Item>
-          <Picker.Item label='10' value={10}></Picker.Item>
-          <Picker.Item label='00' value={0}></Picker.Item>
+          {secondsArray.map((second) => {
+             return <Picker.Item label={`${second}`} value={second} />
+            })}
       </Picker>
       </View>
       </View>

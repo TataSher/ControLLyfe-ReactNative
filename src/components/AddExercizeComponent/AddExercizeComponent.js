@@ -34,7 +34,6 @@ const AddExercizeComponent = ( props ) => {
         exercises: exercizes
       })
     .then(() => {
-      getWorkouts()
       props.navigation.navigate('Workout List')
     })
     .catch((error) => {
@@ -42,75 +41,67 @@ const AddExercizeComponent = ( props ) => {
     })
   }
 
+  const secondsArray = [60, 50, 40, 30, 20, 10, 0]
+  const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+
   return(
     <View style={{flex: 1, position: 'relative'}}>
-    <ScrollView>
-    <TextInput
-      placeholder="Workout title"
-      style={styles.textInput}
-      onChangeText={(text) => setWorkoutTitle(text)}
-      value={workoutTitle}
-    />
-    <Text style={{fontSize: 24, margin: 8}}> Exercises </Text>
+      <ScrollView>
+      <TextInput
+        placeholder="Workout title"
+        style={styles.textInput}
+        onChangeText={(text) => setWorkoutTitle(text)}
+        value={workoutTitle}
+      />
+      <Text style={{fontSize: 24, margin: 8}}> Exercises </Text>
 
-    <KeyboardAvoidingView>
-    <View style={styles.exercizeInput}>
-      <TextInput
-      placeholder="Exercise"
-      onChangeText={(text) => setExercizeTitle(text)}
-      value={exercizeTitle}
-      />
-      <SavedExcercises exercizes={exercizes} {...{SaveAndAdd}} />
-      <View style={{flexDirection: 'row', width: '50%'}}>
-      <Picker
-        style={{backgroundColor: 'white', flex: 1}}
-        selectedValue={minutes}
-        onValueChange={(itemValue) =>
-          setMinutes(itemValue)
-        }>
-          <Picker.Item label='60' value={3600}></Picker.Item>
-          <Picker.Item label='45' value={2700}></Picker.Item>
-          <Picker.Item label='30' value={1800}></Picker.Item>
-          <Picker.Item label='15' value={900}></Picker.Item>
-          <Picker.Item label='10' value={600}></Picker.Item>
-          <Picker.Item label='05' value={300}></Picker.Item>
-          <Picker.Item label='04' value={240}></Picker.Item>
-          <Picker.Item label='03' value={180}></Picker.Item>
-          <Picker.Item label='02' value={120}></Picker.Item>
-          <Picker.Item label='01' value={60}></Picker.Item>
-          <Picker.Item label='00' value={0}></Picker.Item>
-      </Picker>
-      <Picker
-        style={{backgroundColor: 'white', flex: 1}}
-        selectedValue={seconds}
-        onValueChange={(itemValue) =>
-          setSeconds(itemValue)
-        }>
-          <Picker.Item label='50' value={50}/>
-          <Picker.Item label='40' value={40}></Picker.Item>
-          <Picker.Item label='30' value={30}></Picker.Item>
-          <Picker.Item label='20' value={20}></Picker.Item>
-          <Picker.Item label='10' value={10}></Picker.Item>
-          <Picker.Item label='00' value={0}></Picker.Item>
-      </Picker>
-      </View>
-      </View>
-      <View>
-      <TextInput
-      placeholder='description'
-      style={styles.textInput}
-      onChangeText={(text) => setExercizeDescription(text)}
-      value={exercizeDescription}
-      />
-      </View>
-      <TouchableOpacity onPress={() => SaveAndAdd()}>
-        <AddNewExercizeButton/>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => PostNewExercize()} >
-        <SaveButton/>
-      </TouchableOpacity>
-      </KeyboardAvoidingView>
-      </ScrollView>
+      <KeyboardAvoidingView>
+      <View style={styles.exercizeInput}>
+        {/* <TextInput
+        placeholder="Exercise name"
+        onChangeText={(text) => setExercizeTitle(text)}
+        value={exercizeTitle}
+        /> */}
+        <SavedExcercises exercizes={exercizes} {...{SaveAndAdd}} />
+        <View style={{flexDirection: 'row', width: '50%'}}>
+        <Picker
+          style={{backgroundColor: 'white', flex: 1}}
+          selectedValue={minutes}
+          onValueChange={(itemValue) =>
+            setMinutes(itemValue)
+          }>
+            {minutesArray.map((minute) => {
+              <Picker.Item label={`${minute}`} value={minute} />
+            })}
+        </Picker>
+        <Picker
+          style={{backgroundColor: 'white', flex: 1}}
+          selectedValue={seconds}
+          onValueChange={(itemValue) =>
+            setSeconds(itemValue)
+          }>
+            {secondsArray.map((second) => {
+              <Picker.Item label={`${second}`} value={second}/>
+            })}
+        </Picker>
+        </View>
+        </View>
+        <View>
+        <TextInput
+        placeholder='description'
+        style={styles.textInput}
+        onChangeText={(text) => setExercizeDescription(text)}
+        value={exercizeDescription}
+        />
+        </View>
+        <TouchableOpacity onPress={() => SaveAndAdd()}>
+          <AddNewExercizeButton/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => PostNewExercize()} >
+          <SaveButton/>
+        </TouchableOpacity>
+        </KeyboardAvoidingView>
+        </ScrollView>
       </View>
   )
 }
