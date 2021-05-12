@@ -24,6 +24,10 @@ npm install @react-navigation/stack
 
 npm install axios
 
+## Time Picker
+
+npm install react-time-picker
+
 
 
 
