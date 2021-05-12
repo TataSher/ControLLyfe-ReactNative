@@ -21,15 +21,17 @@ const WorkoutListScreen = ( {navigation} ) => {
   }
 
   useEffect(() => {
-    getWorkouts()
-  }, [])
+    navigation.addListener('focus', () => {
+      getWorkouts();
+    });
+  }, [navigation])
 
   return(
     <View style={{flex: 1, position: 'relative'}}>
     <ScrollView>
-      <WorkoutList workouts={workouts} {...{getWorkouts}} />
+      <WorkoutList workouts={workouts} {...{getWorkouts}} /> 
     </ScrollView>
-    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout');}}>
+    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout', { callback: getWorkouts })}}>
       <AddNewWorkoutButton style={styles.button} color={pressed == true ? 'red' : 'blue'}/>
     </TouchableOpacity>
     </View>

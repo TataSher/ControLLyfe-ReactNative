@@ -1,3 +1,9 @@
+## How to run this app
+
+npm i
+make sure the server is running
+expo start
+
 ## Setting up a react-natvie app 
 
 Make sure you have xCode installed on your device, this serves as a simulator for react native apps
@@ -29,6 +35,12 @@ npm install axios
 
 npm install react-time-picker
 Explanation to be found [here](https://github.com/react-native-picker/picker#mode)
+
+## Test environment
+
+yarn add --dev @testing-library/react-native
+
+yarn add --dev @testing-library/jest-native
 
 
 
