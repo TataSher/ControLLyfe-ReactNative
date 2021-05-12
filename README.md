@@ -19,6 +19,7 @@ expo install react-native-svg
 
 npm install @react-navigation/navigate
 npm install @react-navigation/stack
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 
 ## for our get/post/... requests
 
@@ -27,6 +28,9 @@ npm install axios
 ## Time Picker
 
 npm install react-time-picker
+Explanation to be found [here](https://github.com/react-native-picker/picker#mode)
+
+
 
 
 
