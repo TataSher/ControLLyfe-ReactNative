@@ -1,10 +1,8 @@
 import React from 'react';
-import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const WorkoutListComponent = ({
-  workoutTitle,
-}) => {
-
+const WorkoutListComponent = ({ _id , workoutTitle }) => {
+  console.log(_id)
   return( 
     <SafeAreaView>
       <Text style={styles.title}>{workoutTitle}</Text>

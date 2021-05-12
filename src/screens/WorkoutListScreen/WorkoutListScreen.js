@@ -7,7 +7,11 @@ import { AddNewWorkoutButton } from '../../SVGs';
 const WorkoutList = ( props ) => {
   const {workouts = [], getWorkouts, route} = props
 
-  return workouts.map((workout) => <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />)
+  return workouts.map((workout) => 
+  <TouchableOpacity onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
+    <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />
+  </TouchableOpacity>
+  )
 }
 
 const WorkoutListScreen = ( {navigation} ) => {
@@ -18,7 +22,6 @@ const WorkoutListScreen = ( {navigation} ) => {
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
     setWorkouts(workouts.data)
-    console.log(workouts.data)
   }
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const WorkoutListScreen = ( {navigation} ) => {
   return(
     <View style={{flex: 1, position: 'relative'}}>
     <ScrollView>
-      <WorkoutList workouts={workouts} {...{getWorkouts}} />
+      <WorkoutList navigation={navigation} workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
     <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout');}}>
       <AddNewWorkoutButton style={styles.button} color={pressed == true ? 'red' : 'blue'}/>
