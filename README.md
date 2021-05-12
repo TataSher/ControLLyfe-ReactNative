@@ -1,7 +1,7 @@
 ## Setting up a react-natvie app 
 
 Make sure you have xCode installed on your device, this serves as a simulator for react native apps
-run npm install  -g expo-cli 
+run npm install -g expo-cli 
 install expo client on your phone as well
 
 run expo init <filename>
@@ -13,15 +13,24 @@ now, running expo start will open up metro bundler, which controlls our simulato
 Or scan the QR code with your phone
 
 run npm install axios
+expo install react-native-svg
 
 ### for our navigation
 
 npm install @react-navigation/navigate
 npm install @react-navigation/stack
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 
 ## for our get/post/... requests
 
 npm install axios
+
+## Time Picker
+
+npm install react-time-picker
+Explanation to be found [here](https://github.com/react-native-picker/picker#mode)
+
+
 
 
 
