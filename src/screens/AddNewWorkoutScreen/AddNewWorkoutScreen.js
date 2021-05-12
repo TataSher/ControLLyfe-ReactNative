@@ -6,11 +6,11 @@ import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Tex
 const AddNewWorkoutScreen = () => {
 
   const [workoutTitle, setWorkoutTitle] = useState('')
-  const [excersizeTitle, setExcersizeTitle] = useState('')
-  const [excersizeDescription, setExcersizeDesription] = useState('')
+  const [exercizeTitle, setExercizeTitle] = useState('')
+  const [exercizeDescription, setExercizeDesription] = useState('')
   const [seconds, setSeconds] = React.useState(0);
   const [minutes, setMinutes] = React.useState(0);
-  const [excersize, setExcersize] = useState([])
+  const [exercize, setExercize] = useState([])
 
   return(
     <KeyboardAvoidingView>
@@ -21,11 +21,11 @@ const AddNewWorkoutScreen = () => {
         value={workoutTitle}
       />
       <Text style={{fontSize: 24, margin: 8}}> Exercises </Text>
-      <View style={styles.excersizeInput}>
+      <View style={styles.exercizeInput}>
       <TextInput
       placeholder="Exercise"
-      onChangeText={(text) => setExcersizeTitle(text)}
-      value={excersizeTitle}
+      onChangeText={(text) => setExercizeTitle(text)}
+      value={exercizeTitle}
       />
       <View style={{flexDirection: 'row', width: '50%'}}>
       <Picker
@@ -55,23 +55,23 @@ const AddNewWorkoutScreen = () => {
       {/* <TextInput
       placeholder="Min"
       keyboardType='number-pad'
-      onChangeText={(number) => setExcersizeMin(number)}
-      value={excersizeMin}
+      onChangeText={(number) => setExercizeMin(number)}
+      value={exercizeMin}
       />
       <TextInput
       placeholder="Sec"
       keyboardType='number-pad'
-      onChangeText={(number) => setExcersizeSec(number)}
-      value={excersizeSec}
+      onChangeText={(number) => setExercizeSec(number)}
+      value={exercizeSec}
       /> */}
       </View>
       <TextInput
       placeholder='description'
       style={styles.textInput}
-      onChangeText={(text) => setExcersizeDesription(text)}
-      value={excersizeDescription}
+      onChangeText={(text) => setExercizeDesription(text)}
+      value={exercizeDescription}
       />
-      
+
     </KeyboardAvoidingView>
   )
 }
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 24,
   },
-  excersizeInput: {
+  exercizeInput: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 15,
