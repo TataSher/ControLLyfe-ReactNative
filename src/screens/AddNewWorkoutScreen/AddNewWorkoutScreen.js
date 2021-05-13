@@ -1,19 +1,63 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
-import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AddExercizeComponent } from '../../components/AddExercizeComponent'
+import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
+import { SaveButton } from '../../SVGs';
+import axios from 'axios';
+import { ListExercizeComponent } from '../../components';
 
-const AddNewWorkoutScreen = () => {
+const SavedExcercises = ( props ) => {
+  const {exercizes = [], SaveAndAdd } = props
+
+  console.log(exercizes)
+
+  return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
+}
+
+const AddNewWorkoutScreen = ( {navigation} ) => {
+
+  const PostNewExercize = async() => {
+    console.log(workoutTitle)
+    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
+    console.log(exercizes)
+
+      await axios.post('http:localhost:3000/workout',
+      {
+        workoutTitle: workoutTitle,
+        exercises: exercizes
+      })
+    .then(() => {
+      navigation.navigate('Workout List')
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   const [workoutTitle, setWorkoutTitle] = useState('')
   const [exercizeTitle, setExercizeTitle] = useState('')
-  const [exercizeDescription, setExercizeDesription] = useState('')
-  const [seconds, setSeconds] = React.useState(0);
-  const [minutes, setMinutes] = React.useState(0);
-  const [exercize, setExercize] = useState([])
+  const [exercizeDescription, setExercizeDescription] = useState('')
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [exercizes, setExercizes] = useState([])
+  const [image, setImage] = useState('')
+
+  const [curentExercize, setCurrentExcercize] = useState({seconds: 0, minutes: 0, exercizeTitle: ''})
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const SaveAndAdd = () => {
+    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
+    console.log(exercizes)
+  }
+
+  const secondsArray = [60, 50, 40, 30, 20, 10, 0]
+  const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
 
   return(
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>
+    <ScrollView>
       <TextInput
         placeholder="Workout title"
         style={styles.textInput}
@@ -21,9 +65,10 @@ const AddNewWorkoutScreen = () => {
         value={workoutTitle}
       />
       <Text style={{fontSize: 24, margin: 8}}> Exercises </Text>
-      <View style={styles.exercizeInput}>
+    <View style={styles.exercizeInput}>
       <TextInput
-      placeholder="Exercise"
+      placeholder="Exercise name"
+      style={{fontSize: 24}}
       onChangeText={(text) => setExercizeTitle(text)}
       value={exercizeTitle}
       />
@@ -31,48 +76,47 @@ const AddNewWorkoutScreen = () => {
       <Picker
         style={{backgroundColor: 'white', flex: 1}}
         selectedValue={minutes}
-        onValueChange={(itemValue, itemIndex) =>
+        onValueChange={(itemValue) =>
           setMinutes(itemValue)
         }>
-        <Picker.Item label="4" value={4} />
-        <Picker.Item label="3" value={3} />
-        <Picker.Item label="2" value={2} />
-        <Picker.Item label="1" value={1} />
-        <Picker.Item label="0" value={0} />
+            {minutesArray.map((minute) => {
+             return <Picker.Item key={minute} label={`${minute}`} value={minute * 60} />
+            })}
       </Picker>
       <Picker
         style={{backgroundColor: 'white', flex: 1}}
         selectedValue={seconds}
-        onValueChange={(itemValue, itemIndex) =>
+        onValueChange={(itemValue) =>
           setSeconds(itemValue)
         }>
-        <Picker.Item label="45" value={30} />
-        <Picker.Item label="30" value={45} />
-        <Picker.Item label="15" value={15} />
-        <Picker.Item label="00" value={0} />
+          {secondsArray.map((second) => {
+             return <Picker.Item key={second} label={`${second}`} value={second} />
+            })}
       </Picker>
       </View>
-      {/* <TextInput
-      placeholder="Min"
-      keyboardType='number-pad'
-      onChangeText={(number) => setExercizeMin(number)}
-      value={exercizeMin}
-      />
-      <TextInput
-      placeholder="Sec"
-      keyboardType='number-pad'
-      onChangeText={(number) => setExercizeSec(number)}
-      value={exercizeSec}
-      /> */}
       </View>
+      <View>
       <TextInput
-      placeholder='description'
-      style={styles.textInput}
-      onChangeText={(text) => setExercizeDesription(text)}
-      value={exercizeDescription}
+        placeholder='description'
+        style={styles.textInput}
+        onChangeText={(text) => setExercizeDescription(text)}
+        value={exercizeDescription}
       />
+      </View>
+      <SavedExcercises exercizes={exercizes}/>
+     
+      </ScrollView>
+      <SafeAreaView>
+      <TouchableOpacity onPress={() => SaveAndAdd()}>
+        <AddNewExercizeButton style={styles.button}/>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} >
+        <SaveButton  color='lightblue'/>
+      </TouchableOpacity>
 
-    </KeyboardAvoidingView>
+      </SafeAreaView>
+      
+      </KeyboardAvoidingView>
   )
 }
 
@@ -102,7 +146,22 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     fontSize: 24,
-
+  },
+  button: {
+    position: 'absolute', 
+    bottom: 40, left: 40, 
+    shadowColor:'black', 
+    shadowRadius: 8, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.3
+  },
+  saveButton: {
+    position: 'absolute',
+    bottom: 40, right: 40,
+    shadowRadius: 5, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.3,
+    shadowColor:'black', 
   }
 })
 
