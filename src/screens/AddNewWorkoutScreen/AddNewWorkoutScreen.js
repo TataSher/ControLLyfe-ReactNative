@@ -13,7 +13,7 @@ const SavedExcercises = ( props ) => {
 
   console.log(exercizes)
 
-  return exercizes.reverse().map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
+  return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
 }
 
 const AddNewWorkoutScreen = ( {navigation} ) => {
@@ -80,7 +80,7 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
           setMinutes(itemValue)
         }>
             {minutesArray.map((minute) => {
-             return <Picker.Item key={minute} label={`${minute}`} value={minute} />
+             return <Picker.Item key={minute} label={`${minute}`} value={minute * 60} />
             })}
       </Picker>
       <Picker
