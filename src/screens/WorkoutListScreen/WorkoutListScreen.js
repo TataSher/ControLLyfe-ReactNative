@@ -7,11 +7,23 @@ import {useIsFocused} from '@react-navigation/native'
 
 const WorkoutList = ( props ) => {
   const {workouts = [], getWorkouts} = props
-
-  return workouts.map((workout) => 
-  <TouchableOpacity key={workout._id} onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
-    <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />
-  </TouchableOpacity>
+  
+  const deleteWorkout = async(id) => {
+    const res = await axios.delete(`http://localhost:3000/workout/${id}`)
+  }
+  
+  return workouts.map((workout) =>
+    <View key={workout._id} >
+      <TouchableOpacity key={workout._id} onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
+        <WorkoutListComponent key={workout._id} {...workout} />
+      </TouchableOpacity>
+      <Button 
+        title="Delete" 
+        onPress={() =>{
+          deleteWorkout(workout._id)
+        }}
+      />
+    </View>
   )
 }
 
