@@ -107,11 +107,11 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
      
       </ScrollView>
       <SafeAreaView>
-      <TouchableOpacity onPress={() => SaveAndAdd()}>
-        <AddNewExercizeButton style={styles.button}/>
+      <TouchableOpacity style={styles.button} onPress={() => SaveAndAdd()}>
+        <AddNewExercizeButton  color={'darkgrey'} fill={'darkgrey'} width={50} height={50}/>
       </TouchableOpacity>
       <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} >
-        <SaveButton  color='lightblue'/>
+        <SaveButton  color={'darkgrey'}/>
       </TouchableOpacity>
 
       </SafeAreaView>
