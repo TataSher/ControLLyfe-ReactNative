@@ -2,6 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+  const ExerciseList = (props) => {
+    const { exercises = [], getWorkout } = props
+    console.log(exercises)
+    var titles = [];
+    exercises.forEach((exercise) => {
+      titles.push(exercise.title)
+    });
+    return titles.map((title, index) => {
+      return <Text key={index}>{title}</Text>
+    });
+  };
+
 const ShowWorkoutScreen = (props) => {
   const [workoutTitle, setWorkoutTitle] = useState("");
   const [exercises, setExercises] = useState([])
@@ -18,15 +30,7 @@ const ShowWorkoutScreen = (props) => {
     console.log('triggered')
   }, [])
 
-  const exerciseList = (exercises) => {
-    console.log(exercises)
-    var titles = "";
-    exercises.forEach((exercise) => {
-      titles += exercise.title
-    });
 
-    return titles;
-  };
 
   // Need to create an ExerciseListComponent - same as WorkoutListComponent
 
@@ -35,12 +39,14 @@ const ShowWorkoutScreen = (props) => {
       <Text>{workoutTitle}</Text>
 
       <ScrollView>
-        <Text>{exerciseList(exercises)}</Text>
+        <ExerciseList exercises={exercises} />
       </ScrollView>
       
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({});
 
