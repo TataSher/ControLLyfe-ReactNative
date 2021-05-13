@@ -13,7 +13,7 @@ const SavedExcercises = ( props ) => {
 
   console.log(exercizes)
 
-  return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
+  return exercizes.reverse().map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
 }
 
 const AddNewWorkoutScreen = ( {navigation} ) => {
@@ -56,7 +56,7 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
   const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
 
   return(
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>
     <ScrollView>
       <TextInput
         placeholder="Workout title"
@@ -80,7 +80,7 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
           setMinutes(itemValue)
         }>
             {minutesArray.map((minute) => {
-             return <Picker.Item label={`${minute}`} value={minute} />
+             return <Picker.Item key={minute} label={`${minute}`} value={minute} />
             })}
       </Picker>
       <Picker
@@ -90,7 +90,7 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
           setSeconds(itemValue)
         }>
           {secondsArray.map((second) => {
-             return <Picker.Item label={`${second}`} value={second} />
+             return <Picker.Item key={second} label={`${second}`} value={second} />
             })}
       </Picker>
       </View>
@@ -110,8 +110,8 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
       <TouchableOpacity onPress={() => SaveAndAdd()}>
         <AddNewExercizeButton style={styles.button}/>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} style={{backgroundColor: 'pink', padding: 8, borderRadius: 16, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-        <SaveButton  color='coral'/>
+      <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} >
+        <SaveButton  color='lightblue'/>
       </TouchableOpacity>
 
       </SafeAreaView>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute', 
-    bottom: 50, right:30, 
+    bottom: 40, left: 40, 
     shadowColor:'black', 
     shadowRadius: 8, 
     shadowOffset: {width: 5, height: 5}, 
@@ -157,7 +157,11 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     position: 'absolute',
-    bottom: 40, right: 40
+    bottom: 40, right: 40,
+    shadowRadius: 5, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.3,
+    shadowColor:'black', 
   }
 })
 

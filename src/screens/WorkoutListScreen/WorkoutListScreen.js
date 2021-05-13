@@ -31,7 +31,7 @@ const WorkoutListScreen = ( {navigation} ) => {
       <WorkoutList workouts={workouts} {...{getWorkouts}} /> 
     </ScrollView>
     <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout')}}>
-      <AddNewWorkoutButton style={styles.button} color={pressed == true ? 'red' : 'blue'}/>
+      <AddNewWorkoutButton style={styles.button} fill={'lightblue'}/>
     </TouchableOpacity>
     </View>
   )
