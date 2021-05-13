@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ScrollView, StyleSheet, Text, TouchableHighlightBase, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableHighlightBase, View, TouchableOpacity} from 'react-native';
+import { EditWorkoutButton } from '../../SVGs'
 
   const ExerciseList = (props) => {
     const { exercises = [], getWorkout } = props
@@ -18,8 +19,8 @@ import { ScrollView, StyleSheet, Text, TouchableHighlightBase, View } from 'reac
 
       return <View key={index} style={styles.exerciseBox}>
         <View style={styles.exerciseHeader}>
-      <Text style={styles.excerciseText}> {title.title} </Text>
-      <Text style={styles.excerciseText}> { minutesDisplay } : { secondsDisplay } </Text>
+        <Text style={styles.excerciseText}> {title.title} </Text>
+        <Text style={styles.excerciseText}> { minutesDisplay } : { secondsDisplay } </Text>
       </View>
       <Text style={styles.exerciseDescription}> {title.description}  </Text>
       </View>
@@ -47,14 +48,19 @@ const ShowWorkoutScreen = (props) => {
   // Need to create an ExerciseListComponent - same as WorkoutListComponent
 
   return (
-    <ScrollView>
-      <Text style={styles.workoutTitle}>{workoutTitle}</Text>
-
+    <View style={{flex: 1, position: 'relative'}}>
       <ScrollView>
-        <ExerciseList exercises={exercises} />
+        <Text style={styles.workoutTitle}>{workoutTitle}</Text>
+
+        <ScrollView>
+          <ExerciseList exercises={exercises} />
+        </ScrollView>
+        
       </ScrollView>
-      
-    </ScrollView>
+      <TouchableOpacity >
+        <EditWorkoutButton style={styles.editWorkoutButton} color={'darkgray'} fill={'darkgray'}/>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -84,7 +90,16 @@ const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 20,
     margin: 8,
-  }
+  },
+  editWorkoutButton: {
+    position: 'absolute', 
+    bottom: 50, left:30, 
+    shadowColor:'black', 
+    shadowRadius: 8, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.3
+  },
+
 })
 
 export { ShowWorkoutScreen }
