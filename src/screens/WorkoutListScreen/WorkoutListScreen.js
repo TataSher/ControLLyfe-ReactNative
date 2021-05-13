@@ -3,15 +3,16 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpac
 import axios from 'axios';
 import { WorkoutListComponent } from '../../components';
 import { AddNewWorkoutButton } from '../../SVGs';
+import {useIsFocused} from '@react-navigation/native'
 
 const WorkoutList = ( props ) => {
-  const {workouts = [], getWorkouts, route} = props
+  const {workouts = [], getWorkouts} = props
 
   return workouts.map((workout) => <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />)
 }
 
 const WorkoutListScreen = ( {navigation} ) => {
-
+  const isFocused = useIsFocused()
   const [workouts, setWorkouts] = useState([])
   const [pressed, setPressed] = useState(false)
 
@@ -21,17 +22,15 @@ const WorkoutListScreen = ( {navigation} ) => {
   }
 
   useEffect(() => {
-    // navigation.addListener('focus', () => {
       getWorkouts();
-    // });
-  }, [])
+  }, [isFocused])
 
   return(
     <View style={{flex: 1, position: 'relative'}}>
     <ScrollView>
       <WorkoutList workouts={workouts} {...{getWorkouts}} /> 
     </ScrollView>
-    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout', { callback: getWorkouts })}}>
+    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout')}}>
       <AddNewWorkoutButton style={styles.button} color={pressed == true ? 'red' : 'blue'}/>
     </TouchableOpacity>
     </View>

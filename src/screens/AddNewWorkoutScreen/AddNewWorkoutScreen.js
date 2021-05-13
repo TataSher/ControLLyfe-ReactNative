@@ -1,17 +1,20 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { AddExercizeComponent } from '../../components/AddExercizeComponent'
 import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
+import { ListExercizeComponent } from '../../components';
 
-// const SavedExcercises = ( props ) => {
-//   const {exercizes = [], SaveAndAdd } = props
+const SavedExcercises = ( props ) => {
+  const {exercizes = [], SaveAndAdd } = props
 
-//   return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
-// }
+  console.log(exercizes)
+
+  return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
+}
 
 const AddNewWorkoutScreen = ( {navigation} ) => {
 
@@ -36,11 +39,14 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
   const [workoutTitle, setWorkoutTitle] = useState('')
   const [exercizeTitle, setExercizeTitle] = useState('')
   const [exercizeDescription, setExercizeDescription] = useState('')
-  const [seconds, setSeconds] = React.useState(0);
-  const [minutes, setMinutes] = React.useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [exercizes, setExercizes] = useState([])
   const [image, setImage] = useState('')
 
+  const [curentExercize, setCurrentExcercize] = useState({seconds: 0, minutes: 0, exercizeTitle: ''})
+
+  const [currentIndex, setCurrentIndex] = useState(0)
   const SaveAndAdd = () => {
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
     console.log(exercizes)
@@ -50,8 +56,8 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
   const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
 
   return(
-    <View style={{flex: 1, position: 'relative'}}>
-      <ScrollView>
+    <KeyboardAvoidingView>
+    <ScrollView>
       <TextInput
         placeholder="Workout title"
         style={styles.textInput}
@@ -59,7 +65,6 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
         value={workoutTitle}
       />
       <Text style={{fontSize: 24, margin: 8}}> Exercises </Text>
-         <KeyboardAvoidingView>
     <View style={styles.exercizeInput}>
       <TextInput
       placeholder="Exercise name"
@@ -92,21 +97,26 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
       </View>
       <View>
       <TextInput
-      placeholder='description'
-      style={styles.textInput}
-      onChangeText={(text) => setExercizeDescription(text)}
-      value={exercizeDescription}
+        placeholder='description'
+        style={styles.textInput}
+        onChangeText={(text) => setExercizeDescription(text)}
+        value={exercizeDescription}
       />
       </View>
-      <TouchableOpacity onPress={() => SaveAndAdd()}>
-        <AddNewExercizeButton/>
-      </TouchableOpacity>
-      </KeyboardAvoidingView>
-      <TouchableOpacity onPress={() => PostNewExercize()} >
-        <SaveButton/>
-      </TouchableOpacity>
+      <SavedExcercises exercizes={exercizes}/>
+     
       </ScrollView>
-    </View>
+      <SafeAreaView>
+      <TouchableOpacity onPress={() => SaveAndAdd()}>
+        <AddNewExercizeButton style={styles.button}/>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} style={{backgroundColor: 'pink', padding: 8, borderRadius: 16, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+        <SaveButton  color='coral'/>
+      </TouchableOpacity>
+
+      </SafeAreaView>
+      
+      </KeyboardAvoidingView>
   )
 }
 
@@ -145,6 +155,10 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 5, height: 5}, 
     shadowOpacity: 0.3
   },
+  saveButton: {
+    position: 'absolute',
+    bottom: 40, right: 40
+  }
 })
 
 export { AddNewWorkoutScreen }
