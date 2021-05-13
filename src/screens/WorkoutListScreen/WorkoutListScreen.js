@@ -9,7 +9,7 @@ const WorkoutList = ( props ) => {
   const {workouts = [], getWorkouts} = props
 
   return workouts.map((workout) => 
-  <TouchableOpacity onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
+  <TouchableOpacity key={workout._id} onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
     <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />
   </TouchableOpacity>
   )
