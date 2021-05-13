@@ -21,6 +21,7 @@ const WorkoutList = ( props ) => {
         title="Delete" 
         onPress={() =>{
           deleteWorkout(workout._id)
+          getWorkouts()
         }}
       />
     </View>
