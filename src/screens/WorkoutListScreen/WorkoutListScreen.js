@@ -8,7 +8,11 @@ import {useIsFocused} from '@react-navigation/native'
 const WorkoutList = ( props ) => {
   const {workouts = [], getWorkouts} = props
 
-  return workouts.map((workout) => <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />)
+  return workouts.map((workout) => 
+  <TouchableOpacity onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
+    <WorkoutListComponent key={workout._id} {...workout} {...{getWorkouts}} />
+  </TouchableOpacity>
+  )
 }
 
 const WorkoutListScreen = ( {navigation} ) => {
@@ -28,7 +32,7 @@ const WorkoutListScreen = ( {navigation} ) => {
   return(
     <View style={{flex: 1, position: 'relative'}}>
     <ScrollView>
-      <WorkoutList workouts={workouts} {...{getWorkouts}} /> 
+      <WorkoutList navigation={navigation} workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
     <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout')}}>
       <AddNewWorkoutButton style={styles.button} fill={'lightblue'}/>
