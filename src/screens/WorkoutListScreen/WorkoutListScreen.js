@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { WorkoutListComponent } from '../../components';
-import { AddNewWorkoutButton } from '../../SVGs';
+import { AddNewWorkoutButton, DeleteWorkoutButton } from '../../SVGs';
 import {useIsFocused} from '@react-navigation/native'
 
 const WorkoutList = ( props ) => {
@@ -17,13 +17,13 @@ const WorkoutList = ( props ) => {
       <TouchableOpacity key={workout._id} onPress={ () => props.navigation.navigate("Show Workout", { id: workout._id }) } >
         <WorkoutListComponent key={workout._id} {...workout} />
       </TouchableOpacity>
-      <Button 
-        title="Delete" 
+      <TouchableOpacity
         onPress={() =>{
           deleteWorkout(workout._id)
           getWorkouts()
-        }}
-      />
+        }}>
+      <DeleteWorkoutButton style={styles.deleteButton} color={'darkgrey'} width={25}/>
+     </TouchableOpacity>
     </View>
   )
 }
@@ -67,6 +67,14 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 5, height: 5}, 
     shadowOpacity: 0.3
   },
+  deleteButton: {
+    position: 'absolute', 
+    bottom: 15, right:30, 
+    shadowColor:'black', 
+    shadowRadius: 8, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.3
+  }
 })
 
 export { WorkoutListScreen }
