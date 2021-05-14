@@ -7,7 +7,6 @@ const EditExercizeComponent = (props) => {
   return exercises.map((exercise, index) => {
      const title = exercise.title
      const description = exercise.description
-     const id = exercise._id
 
      const minutes = Math.floor(exercise.duration / 60)
      const seconds = exercise.duration - (minutes * 60) >= 0 ? exercise.duration - minutes * 60 : exercise.duration
@@ -18,11 +17,13 @@ const EditExercizeComponent = (props) => {
     <TouchableOpacity 
       key={index}
       onPress={() => {
+        console.log(index)
         setTitle(title)
         setDescription(description)
         setSeconds(seconds)
         setMinutes(minutes)
-        // deleteExercize(id)
+        // This function deletes an exerzise
+        // deleteExercize(index)
       }}
     >
       <View key={index} style={styles.exerciseBox}>

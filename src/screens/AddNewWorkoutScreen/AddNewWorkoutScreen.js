@@ -46,16 +46,9 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
     }
   }, [])
 
-  const deleteExercize = (id) => {
-    console.log("TESTTTTTTTTTTTTT")
-    console.log(id)
-    console.log(exercizes)
-    var updatedExercizes = exercizes.filter((exercise) => {
-      exercise._id !== id
-    })
-    console.log("UPDATEDDDDDDDDD")
-    console.log(exercizes)
-    setExercizes(updatedExercizes);
+  const deleteExercize = (index) => {
+    exercizes.splice(index, 1)
+    setExercizes(exercizes)
   }
 
   const SaveAndAdd = () => {
