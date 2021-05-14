@@ -1,4 +1,3 @@
-
 import React, { Component, useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { AddExercizeComponent } from '../../components/AddExercizeComponent'
@@ -7,6 +6,7 @@ import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
 import { ListExercizeComponent } from '../../components';
+import { EditExercizeComponent } from '../../components/index'
 
 const SavedExcercises = ( props ) => {
   const {exercizes = [], SaveAndAdd } = props
@@ -39,8 +39,8 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
   const [image, setImage] = useState('')
 
   const [curentExercize, setCurrentExcercize] = useState({seconds: 0, minutes: 0, exercizeTitle: ''})
-
   const [currentIndex, setCurrentIndex] = useState(0)
+
   const SaveAndAdd = () => {
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
     setExercizeTitle('');
@@ -55,7 +55,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
 
   return(
     <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>
-    <ScrollView>
+    <View>
       <TextInput
         placeholder="Workout title"
         style={styles.textInput}
@@ -100,10 +100,11 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
         onChangeText={(text) => setExercizeDescription(text)}
         value={exercizeDescription}
       />
-      </View>
-      <SavedExcercises exercizes={exercizes}/>
-     
-      </ScrollView>
+      </View>     
+    </View>
+    <ScrollView>
+      <EditExercizeComponent exercises={exercizes}/>
+    </ScrollView>
       <SafeAreaView>
       <TouchableOpacity style={styles.button} onPress={() => SaveAndAdd()}>
         <AddNewExercizeButton  color={'darkgrey'} fill={'darkgrey'} width={50} height={50}/>
@@ -120,9 +121,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
       >
         <SaveButton  color={'darkgrey'}/>
       </TouchableOpacity>
-
       </SafeAreaView>
-      
       </KeyboardAvoidingView>
   )
 }

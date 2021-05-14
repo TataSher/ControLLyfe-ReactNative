@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const ExerciseListComponent = (props) => {
+const EditExercizeComponent = (props) => {
   const { exercises = [] } = props
 
   return exercises.map((exercise, index) => {
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export { ExerciseListComponent }
+export { EditExercizeComponent }
