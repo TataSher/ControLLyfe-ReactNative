@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { EditWorkoutButton } from '../../SVGs'
+import { EditWorkoutButton, StartWorkoutButton } from '../../SVGs'
 import { ExerciseListComponent } from '../../components/index'
 import { MinutesAndSeconds } from '../../HelperFunctions';
 
