@@ -5,15 +5,11 @@ import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Tex
 import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
-import { ListExercizeComponent } from '../../components';
 import { EditExercizeComponent } from '../../components/index'
 
-const SavedExcercises = ( props ) => {
-  const {exercizes = [], SaveAndAdd } = props
-  return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
-}
-
 const AddNewWorkoutScreen = ( {navigation, route} ) => {
+
+  console.log(route)
 
   const PostNewExercize = async() => {
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
@@ -30,6 +26,10 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
     })
   }
 
+  const updateWorkout = async () => {
+    
+  }
+
   const [workoutTitle, setWorkoutTitle] = useState('')
   const [exercizeTitle, setExercizeTitle] = useState('')
   const [exercizeDescription, setExercizeDescription] = useState('')
@@ -40,6 +40,13 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
 
   const [curentExercize, setCurrentExcercize] = useState({seconds: 0, minutes: 0, exercizeTitle: ''})
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() =>{
+    if (route.params) {
+      setWorkoutTitle(route.params.workoutTitle);
+      setExercizes(route.params.exercises);
+    }
+  }, [])
 
   const SaveAndAdd = () => {
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
@@ -112,7 +119,12 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
       <TouchableOpacity 
         style={styles.saveButton} 
         onPress={() => {
-          PostNewExercize()
+          if (route.params) {
+
+          } else {
+            PostNewExercize()
+          }
+          
         }} 
       >
         <SaveButton  color={'darkgrey'}/>

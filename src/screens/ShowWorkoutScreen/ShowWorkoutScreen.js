@@ -30,7 +30,7 @@ const ShowWorkoutScreen = (props) => {
         </ScrollView>
       </ScrollView>
       <TouchableOpacity 
-        onPress={() => props.navigation.navigate("Add New Workout", {edit: true})}
+        onPress={() => props.navigation.navigate("Add New Workout", {workoutTitle, exercises})}
       >
         <EditWorkoutButton style={styles.editWorkoutButton} color={'darkgray'} fill={'darkgray'}/>
       </TouchableOpacity>
