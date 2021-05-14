@@ -3,11 +3,11 @@ import axios from 'axios';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { EditWorkoutButton } from '../../SVGs'
 import { ExerciseListComponent } from '../../components/index'
+import { MinutesAndSeconds } from '../../HelperFunctions';
 
 const ShowWorkoutScreen = (props) => {
   const [workoutTitle, setWorkoutTitle] = useState("");
   const [exercises, setExercises] = useState([])
-  console.log(exercises)
 
   const getWorkout = async() => {
     const workout = await axios.get(`http://localhost:3000/workout/${props.route.params.id}`)
@@ -15,17 +15,27 @@ const ShowWorkoutScreen = (props) => {
     setExercises(workout.data.exercises)
   }
 
+  const totalDurationFunction = () => {
+    const sum = exercises.map((exercise) => {
+      return exercise.duration
+    })
+    const addedUp = sum.reduce(function(a, b){
+        return a + b;
+      }, 0)
+    return addedUp
+  }
+
   useEffect(() => {
     getWorkout()
-    console.log('triggered')
   }, [])
-
-  // Need to create an ExerciseListComponent - same as WorkoutListComponent
 
   return (
     <View style={{flex: 1, position: 'relative'}}>
       <ScrollView>
         <Text style={styles.workoutTitle}>{workoutTitle}</Text>
+        <View style={styles.totalDuration}>
+          <MinutesAndSeconds seconds={totalDurationFunction()} />
+        </View>
         <ScrollView>
           <ExerciseListComponent exercises={exercises} />
         </ScrollView>
@@ -45,6 +55,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     justifyContent: 'center',
     alignSelf: 'center',
+  },
+  totalDuration: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 16,
+    marginBottom: 16
   },
   editWorkoutButton: {
     position: 'absolute', 
