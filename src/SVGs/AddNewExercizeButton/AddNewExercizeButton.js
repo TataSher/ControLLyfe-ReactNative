@@ -1,5 +1,6 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+
 function AddNewExercizeButton(props) {
 
   const { width=36.81, height=38.95, fill="#1d1d1b", color="#1d1d1b" } = props

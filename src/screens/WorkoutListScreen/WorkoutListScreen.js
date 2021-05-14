@@ -3,7 +3,7 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpac
 import axios from 'axios';
 import { WorkoutListComponent } from '../../components';
 import { AddNewWorkoutButton, DeleteWorkoutButton } from '../../SVGs';
-import {useIsFocused} from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 
 const WorkoutList = ( props ) => {
   const {workouts = [], getWorkouts} = props

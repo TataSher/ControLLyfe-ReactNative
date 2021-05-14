@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { AddNewExercizeButton, SaveButton } from '../../SVGs';
-import { ListExercizeComponent } from './index'
+import { ListExercizeComponent } from '../ListExercizeComponent'
 
 const SavedExcercises = ( props ) => {
   const {exercizes = [], SaveAndAdd } = props

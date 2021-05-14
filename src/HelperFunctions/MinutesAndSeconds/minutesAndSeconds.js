@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 const MinutesAndSeconds = ( {seconds} ) => {
   const min = Math.floor(seconds / 60)
