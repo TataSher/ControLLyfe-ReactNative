@@ -7,7 +7,6 @@ import { ExerciseListComponent } from '../../components/index'
 const ShowWorkoutScreen = (props) => {
   const [workoutTitle, setWorkoutTitle] = useState("");
   const [exercises, setExercises] = useState([])
-  console.log(exercises)
 
   const getWorkout = async() => {
     const workout = await axios.get(`http://localhost:3000/workout/${props.route.params.id}`)
@@ -30,7 +29,9 @@ const ShowWorkoutScreen = (props) => {
           <ExerciseListComponent exercises={exercises} />
         </ScrollView>
       </ScrollView>
-      <TouchableOpacity >
+      <TouchableOpacity 
+        onPress={() => props.navigation.navigate("Add New Workout", {edit: true})}
+      >
         <EditWorkoutButton style={styles.editWorkoutButton} color={'darkgray'} fill={'darkgray'}/>
       </TouchableOpacity>
     </View>

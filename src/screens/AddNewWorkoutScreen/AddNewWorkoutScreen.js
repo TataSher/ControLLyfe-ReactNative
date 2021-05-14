@@ -10,19 +10,13 @@ import { ListExercizeComponent } from '../../components';
 
 const SavedExcercises = ( props ) => {
   const {exercizes = [], SaveAndAdd } = props
-
-  console.log(exercizes)
-
   return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
 }
 
-const AddNewWorkoutScreen = ( {navigation} ) => {
+const AddNewWorkoutScreen = ( {navigation, route} ) => {
 
   const PostNewExercize = async() => {
-    console.log(workoutTitle)
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
-    console.log(exercizes)
-
       await axios.post('http:localhost:3000/workout',
       {
         workoutTitle: workoutTitle,
@@ -49,6 +43,10 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const SaveAndAdd = () => {
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
+    setExercizeTitle('');
+    setExercizeDescription('');
+    setSeconds(0);
+    setMinutes(0);
     console.log(exercizes)
   }
 
@@ -110,7 +108,16 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
       <TouchableOpacity style={styles.button} onPress={() => SaveAndAdd()}>
         <AddNewExercizeButton  color={'darkgrey'} fill={'darkgrey'} width={50} height={50}/>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} >
+      <TouchableOpacity 
+        style={styles.saveButton} 
+        onPress={() => {
+          if(route.params.edit) {
+            updateExercise()
+          } else {
+          PostNewExercize()
+          }
+        }} 
+      >
         <SaveButton  color={'darkgrey'}/>
       </TouchableOpacity>
 
