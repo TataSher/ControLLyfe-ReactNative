@@ -9,8 +9,6 @@ import { EditExercizeComponent } from '../../components/index'
 
 const AddNewWorkoutScreen = ( {navigation, route} ) => {
 
-  console.log(route)
-
   const PostNewExercize = async() => {
     exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
       await axios.post('http:localhost:3000/workout',
@@ -27,7 +25,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
   }
 
   const updateWorkout = async () => {
-    
+
   }
 
   const [workoutTitle, setWorkoutTitle] = useState('')
@@ -48,8 +46,20 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
     }
   }, [])
 
+  const deleteExercize = (id) => {
+    console.log("TESTTTTTTTTTTTTT")
+    console.log(id)
+    console.log(exercizes)
+    var updatedExercizes = exercizes.filter((exercise) => {
+      exercise._id !== id
+    })
+    console.log("UPDATEDDDDDDDDD")
+    console.log(exercizes)
+    setExercizes(updatedExercizes);
+  }
+
   const SaveAndAdd = () => {
-    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
+    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)})
     setExercizeTitle('');
     setExercizeDescription('');
     setSeconds(0);
@@ -85,7 +95,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
           setMinutes(itemValue)
         }>
             {minutesArray.map((minute) => {
-             return <Picker.Item key={minute} label={`${minute}`} value={minute * 60} />
+             return <Picker.Item key={minute} label={`${minute}`} value={minute} />
             })}
       </Picker>
       <Picker
@@ -110,7 +120,15 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
       </View>     
     </View>
     <ScrollView>
-      <EditExercizeComponent exercises={exercizes}/>
+      <EditExercizeComponent 
+        exercises={exercizes}
+        setTitle={setExercizeTitle}
+        setDescription={setExercizeDescription}
+        setSeconds={setSeconds}
+        setMinutes={setMinutes}
+        deleteExercize={deleteExercize}
+      />
+
     </ScrollView>
       <SafeAreaView>
       <TouchableOpacity style={styles.button} onPress={() => SaveAndAdd()}>
