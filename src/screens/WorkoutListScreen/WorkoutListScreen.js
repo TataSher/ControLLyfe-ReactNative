@@ -8,6 +8,7 @@ import { useIsFocused } from '@react-navigation/native'
 const WorkoutListScreen = ( {navigation} ) => {
   const isFocused = useIsFocused()
   const [workouts, setWorkouts] = useState([])
+  const [pressed, setPressed] = useState(false)
 
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
