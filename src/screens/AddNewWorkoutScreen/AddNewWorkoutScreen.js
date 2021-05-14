@@ -112,11 +112,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
       <TouchableOpacity 
         style={styles.saveButton} 
         onPress={() => {
-          if(route.params.edit) {
-            updateExercise()
-          } else {
           PostNewExercize()
-          }
         }} 
       >
         <SaveButton  color={'darkgrey'}/>
