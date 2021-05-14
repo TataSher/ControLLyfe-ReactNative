@@ -1,31 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ScrollView, StyleSheet, Text, TouchableHighlightBase, View, TouchableOpacity} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { EditWorkoutButton } from '../../SVGs'
-
-  const ExerciseList = (props) => {
-    const { exercises = [], getWorkout } = props
-    console.log(exercises)
-    var titles = [];
-    exercises.forEach((exercise) => {
-      titles.push({'title': exercise.title, 'duration': exercise.duration, 'description': exercise.description })
-    });
-
-    return titles.map((title, index) => {
-       const minutes = Math.floor(title.duration / 60)
-       const seconds = title.duration - (minutes * 60) >= 0 ? title.duration - minutes * 60 : title.duration
-       const minutesDisplay = minutes < 10 ? `0${minutes}` : minutes
-       const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds
-
-      return <View key={index} style={styles.exerciseBox}>
-        <View style={styles.exerciseHeader}>
-        <Text style={styles.excerciseText}> {title.title} </Text>
-        <Text style={styles.excerciseText}> { minutesDisplay } : { secondsDisplay } </Text>
-      </View>
-      <Text style={styles.exerciseDescription}> {title.description}  </Text>
-      </View>
-    });
-  };
+import { ExerciseListComponent } from '../../components/index'
 
 const ShowWorkoutScreen = (props) => {
   const [workoutTitle, setWorkoutTitle] = useState("");
@@ -43,19 +20,15 @@ const ShowWorkoutScreen = (props) => {
     console.log('triggered')
   }, [])
 
-
-
   // Need to create an ExerciseListComponent - same as WorkoutListComponent
 
   return (
     <View style={{flex: 1, position: 'relative'}}>
       <ScrollView>
         <Text style={styles.workoutTitle}>{workoutTitle}</Text>
-
         <ScrollView>
-          <ExerciseList exercises={exercises} />
+          <ExerciseListComponent exercises={exercises} />
         </ScrollView>
-        
       </ScrollView>
       <TouchableOpacity >
         <EditWorkoutButton style={styles.editWorkoutButton} color={'darkgray'} fill={'darkgray'}/>
@@ -73,24 +46,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
   },
-  exerciseBox: {
-    margin: 20,
-    backgroundColor: 'white'
-  },
-  exerciseHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  excerciseText: {
-    color: 'darkgray',
-    fontSize: 24,
-    margin: 8,
-  },
-  exerciseDescription: {
-    color: 'gray',
-    fontSize: 20,
-    margin: 8,
-  },
   editWorkoutButton: {
     position: 'absolute', 
     bottom: 50, left:30, 
@@ -98,8 +53,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8, 
     shadowOffset: {width: 5, height: 5}, 
     shadowOpacity: 0.3
-  },
-
+  }
 })
 
 export { ShowWorkoutScreen }
