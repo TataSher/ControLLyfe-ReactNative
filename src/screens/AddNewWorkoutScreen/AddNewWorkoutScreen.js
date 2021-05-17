@@ -1,4 +1,3 @@
-
 import React, { Component, useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { AddExercizeComponent } from '../../components/AddExercizeComponent'
@@ -6,34 +5,37 @@ import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Tex
 import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
-import { ListExercizeComponent } from '../../components';
+import { EditExercizeComponent } from '../../components/index'
 
-const SavedExcercises = ( props ) => {
-  const {exercizes = [], SaveAndAdd } = props
-
-  console.log(exercizes)
-
-  return exercizes.map((exercize, index) => <ListExercizeComponent key={index} {...exercize} {...{SaveAndAdd}}/>)
-}
-
-const AddNewWorkoutScreen = ( {navigation} ) => {
-
-  const PostNewExercize = async() => {
-    console.log(workoutTitle)
-    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
-    console.log(exercizes)
-
-      await axios.post('http:localhost:3000/workout',
-      {
-        workoutTitle: workoutTitle,
-        exercises: exercizes
+const AddNewWorkoutScreen = ( {navigation, route} ) => {
+  // Maybe create an api component
+  const postWorkout = async() => {
+    await axios.post('http:localhost:3000/workout',
+    {
+      workoutTitle: workoutTitle,
+      exercises: exercizes
+    })
+      .then(() => {
+        navigation.navigate('Workout List')
       })
-    .then(() => {
-      navigation.navigate('Workout List')
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  // Could go back to the particular workout's id.
+  const updateWorkout = async () => {
+    
+    await axios.put(`http:localhost:3000/workout/${route.params.id}`,
+    {
+      workoutTitle: workoutTitle,
+      exercises: exercizes
     })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then(() => {
+        navigation.navigate('Workout List')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const [workoutTitle, setWorkoutTitle] = useState('')
@@ -41,23 +43,65 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
   const [exercizeDescription, setExercizeDescription] = useState('')
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  const [exercizes, setExercizes] = useState([])
-  const [image, setImage] = useState('')
+  const [exercizes, setExercizes] = useState([]);
+  const [exercizeIndex, setExercizeIndex] = useState(false);
+  const [image, setImage] = useState('');
 
-  const [curentExercize, setCurrentExcercize] = useState({seconds: 0, minutes: 0, exercizeTitle: ''})
+  useEffect(() =>{
+    if (route.params) {
+      setWorkoutTitle(route.params.workoutTitle);
+      setExercizes(route.params.exercises);
+    }
+  }, [])
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const SaveAndAdd = () => {
-    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + minutes})
-    console.log(exercizes)
+  const deleteExercize = (index) => {
+    exercizes.splice(index, 1)
+    setExercizes(exercizes)
   }
 
-  const secondsArray = [60, 50, 40, 30, 20, 10, 0]
+  const resetForm = () => {
+    setExercizeTitle('');
+    setExercizeDescription('');
+    setSeconds(0);
+    setMinutes(0);
+  }
+
+  const SaveAndAdd = () => {
+    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)})
+    resetForm();
+    console.log(exercizes);
+  }
+
+  const editButton = () => {
+    if (exercizeIndex !== false) {
+      return (
+        <View>
+          <Button 
+            title="Save Exercise"
+            onPress={() => {
+              exercizes[exercizeIndex] = {'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)}
+              setExercizeIndex(false)
+              resetForm();
+            }}
+          />
+          <Button
+            title="Delete Exercise"
+            onPress={() => {
+              deleteExercize(exercizeIndex)
+              resetForm();
+            }}
+          />
+        </View>
+      )
+    }
+  }
+  const secondsArray = [50, 40, 30, 20, 10, 0]
   const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
 
   return(
     <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>
-    <ScrollView>
+      {/* Start OF COMP */}
+    <View>
       <TextInput
         placeholder="Workout title"
         style={styles.textInput}
@@ -80,7 +124,7 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
           setMinutes(itemValue)
         }>
             {minutesArray.map((minute) => {
-             return <Picker.Item key={minute} label={`${minute}`} value={minute * 60} />
+             return <Picker.Item key={minute} label={`${minute}`} value={minute} />
             })}
       </Picker>
       <Picker
@@ -102,20 +146,45 @@ const AddNewWorkoutScreen = ( {navigation} ) => {
         onChangeText={(text) => setExercizeDescription(text)}
         value={exercizeDescription}
       />
-      </View>
-      <SavedExcercises exercizes={exercizes}/>
-     
-      </ScrollView>
+      {/* END OF COMP */}
+      {editButton()}
+      </View>     
+    </View>
+    <ScrollView>
+      <EditExercizeComponent 
+        exercises={exercizes}
+        setTitle={setExercizeTitle}
+        setDescription={setExercizeDescription}
+        setSeconds={setSeconds}
+        setMinutes={setMinutes}
+        deleteExercize={deleteExercize}
+        setIndex={setExercizeIndex}
+      />
+
+    </ScrollView>
       <SafeAreaView>
       <TouchableOpacity style={styles.button} onPress={() => SaveAndAdd()}>
         <AddNewExercizeButton  color={'darkgrey'} fill={'darkgrey'} width={50} height={50}/>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.saveButton} onPress={() => PostNewExercize()} >
+      <TouchableOpacity 
+        style={styles.saveButton} 
+        onPress={() => {
+          if (exercizeIndex !== false) {
+            alert("Save Exercise before saving");
+            return;
+          }
+          // Would be better to check navigation rather than params?
+          if (route.params) {
+            updateWorkout();
+          } else {
+            postWorkout();
+          }
+          
+        }} 
+      >
         <SaveButton  color={'darkgrey'}/>
       </TouchableOpacity>
-
       </SafeAreaView>
-      
       </KeyboardAvoidingView>
   )
 }

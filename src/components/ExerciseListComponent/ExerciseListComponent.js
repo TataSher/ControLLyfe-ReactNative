@@ -6,6 +6,10 @@ const ExerciseListComponent = (props) => {
   const { exercises = [] } = props
 
   return exercises.map((exercise, index) => {
+     const minutes = Math.floor(exercise.duration / 60)
+     const seconds = exercise.duration - (minutes * 60) >= 0 ? exercise.duration - minutes * 60 : exercise.duration
+     const minutesDisplay = minutes < 10 ? `0${minutes}` : minutes
+     const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds
 
     return (
     <View key={index} style={styles.exerciseBox}>
