@@ -80,8 +80,7 @@ const StartWorkoutScreen = ( props ) => {
     <View style={{flex: 1}}>
        <Animated.View 
         style={[StyleSheet.absoluteFillObject, {
-          height: 75,
-          bottom: 0,
+          height,
           width,
           backgroundColor: 'pink',
           transform: [{
@@ -113,7 +112,9 @@ const StartWorkoutScreen = ( props ) => {
           paddingHorizontal: ITEM_SPACING,
         }}
         snapToInterval={ITEM_SPACING}
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
+          const nextUp = index + 1
+          console.log('next: ' + exercises[nextUp].title)
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
           <IndividualExerciseComponent exercise={item} />
         </View>
