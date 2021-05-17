@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, StyleSheet, Text, Dimensions, View, Animated, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { WorkoutTitleComponent } from '../../components/WorkoutTitleComponent';
 import { MinutesAndSeconds } from '../../HelperFunctions';
+import { StartWorkoutButton } from '../../SVGs';
 
 const IndividualExerciseComponent = ( props ) => {
   const { exercise } = props
@@ -9,13 +10,14 @@ const IndividualExerciseComponent = ( props ) => {
   console.log(exercise.description)
 
   return(
-    <View style={{width: '50%', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+    // <View style={{width: '50%', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+    <View>
       <View style={styles.exerciseTitleBox}>
-        <Animated.Text style={styles.exerciseTitle} >{exercise.title}</Animated.Text>
+        <Text style={styles.exerciseTitle} >{exercise.title}</Text>
         <Text style={styles.exerciseDescription} >{exercise.description}</Text>
       </View>
       <View style={styles.timer}>
-        <MinutesAndSeconds seconds={exercise.duration} style={{opacity}}/>
+        <MinutesAndSeconds seconds={exercise.duration}/>
       </View>
     </View>
   )
@@ -51,11 +53,44 @@ const StartWorkoutScreen = ( props ) => {
   const ITEM_SIZE = width;
   const ITEM_SPACING = (width - ITEM_SIZE);
 
+  const [duration, setDuration] = useState(exercises[0].duration);
+  const timerAnimation = React.useRef(new Animated.Value(height)).current;
+  const animation = React.useCallback(() => {
+    Animated.sequence([
+
+      Animated.timing( timerAnimation, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true
+      }),
+
+        Animated.timing(timerAnimation, {
+
+          toValue: height,
+          duration: duration * 1000,
+          useNativeDriver: true
+        })
+      ]).start(() => {
+
+      })
+    }, [duration])
+
 
   return(
-    <View style={{position: 'retalive', flex: 1}}>
-      <WorkoutTitleComponent key={id} {...workout}/>
+    <View style={{flex: 1}}>
+       <Animated.View 
+        style={[StyleSheet.absoluteFillObject, {
+          height: 75,
+          bottom: 0,
+          width,
+          backgroundColor: 'pink',
+          transform: [{
+          translateY: timerAnimation}]
+        }]
 
+        }/>
+      <WorkoutTitleComponent key={id} {...workout}/>
+     
       <View style={styles.workoutTitle}>
         <Animated.FlatList 
         data={exercises}
@@ -67,40 +102,28 @@ const StartWorkoutScreen = ( props ) => {
           { useNativeDriver: true }
         )
         }
+        onMomentumScrollEnd={ev => {
+          const index = Math.round(ev.nativeEvent.contentOffset.x / ITEM_SIZE);
+          setDuration(exercises[index].duration)
+        }}
         showsHorizontalScrollIndicator={false}
         snapToInterval={ITEM_SIZE}
         style={{flexGrow: 0}}
         contentContainerStyle={{
           paddingHorizontal: ITEM_SPACING,
         }}
-        snapToInterval={width / 2}
-        renderItem={({item, index}) => {
-          const inputRange = [
-            (index - 1) * ITEM_SIZE,
-            index * ITEM_SIZE,
-            (index + 1) * ITEM_SIZE
-          ]
-
-          const opacity = scrollX.interpolate({
-            inputRange,
-            outputRange: [0, 1, 0]
-          })
-
-          const scale = scrollX.interpolate({
-            inputRange,
-            outputRange: [.7, 1, .7]
-          })
+        snapToInterval={ITEM_SPACING}
+        renderItem={({item}) => {
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-          <View style={styles.exerciseTitleBox}>
-            <Animated.Text style={styles.exerciseTitle} >{item.title}</Animated.Text>
-            <Animated.Text style={styles.exerciseDescription} >{item.description}</Animated.Text>
-          </View>
-          <View style={styles.timer}>
-            <MinutesAndSeconds seconds={item.duration}/>
-          </View>
+          <IndividualExerciseComponent exercise={item} />
         </View>
         }}
         />
+        
+     
+        <TouchableOpacity onPress={animation}>
+          <StartWorkoutButton/>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -108,9 +131,6 @@ const StartWorkoutScreen = ( props ) => {
 
 const styles = StyleSheet.create({
   timer: {
-    // position: 'absolute',
-    // bottom: 10, left: '40%'
-    width: 100,
   },
   exerciseTitle: {
     color: 'grey',
@@ -125,7 +145,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 18,
     marginTop: 100,
-    width: '110%'
   },
   workoutTitle: {
     alignItems: 'center',
