@@ -14,7 +14,9 @@ const MinutesAndSeconds = ( {seconds} ) => {
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 24,
-    color: 'darkgrey'
+    color: 'darkgrey',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

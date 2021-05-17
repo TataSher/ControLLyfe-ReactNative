@@ -11,7 +11,7 @@ const IndividualExerciseComponent = ( props ) => {
 
   return(
     // <View style={{width: '50%', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-    <View>
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <View style={styles.exerciseTitleBox}>
         <Text style={styles.exerciseTitle} >{exercise.title}</Text>
         <Text style={styles.exerciseDescription} >{exercise.description}</Text>
@@ -23,24 +23,6 @@ const IndividualExerciseComponent = ( props ) => {
     </View>
   )
 }
-
-// const StartExerciseComponent = ( props ) => {
-//   const { exercises = [] } = props 
-
-//   console.log(exercises)
-
-//   return exercises.map((exercise, index) => {
-
-//   return(
-//     <View key={index} style={{position: 'retalive', flex: 1}}>
-//       <ScrollView>
-//         <IndividualExerciseComponent exercise={exercise} />
-//       </ScrollView>
-//     </View>
-//     )
-//   })
-// };
-
 
 const StartWorkoutScreen = ( props ) => {
   const workout = props.route.params
@@ -115,14 +97,11 @@ const StartWorkoutScreen = ( props ) => {
         snapToInterval={ITEM_SPACING}
         renderItem={({item, index}) => {
           const nextUp = index + 1
-          // console.log('next: ' + exercises[nextUp].title)
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
           <IndividualExerciseComponent exercise={item} />
         </View>
         }}
         />
-        
-
         <TouchableOpacity onPress={animation}>
           <StartWorkoutButton/>
         </TouchableOpacity>
@@ -133,6 +112,8 @@ const StartWorkoutScreen = ( props ) => {
 
 const styles = StyleSheet.create({
   timer: {
+    justifyContent: 'center',
+    alignContent: 'center'
   },
   exerciseTitle: {
     color: 'grey',
