@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator  screenOptions={{headerTintColor: 'white', headerStyle: {backgroundColor: 'pink'}}}>
+      <Stack.Navigator  screenOptions={{headerTintColor: 'white', headerStyle: {backgroundColor: 'pink'}, headerBackTitle: "", headerTitle: ''}}>
         <Stack.Screen name="Workout List">
         {props => <WorkoutListScreen {...props}/>}
           </Stack.Screen>
@@ -25,10 +25,6 @@ export default function App() {
         </Stack.Screen> 
       </Stack.Navigator>
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   <WorkoutListScreen/>
-    //   <Text>Happy!</Text>
-    // </View>
   );
 }
 

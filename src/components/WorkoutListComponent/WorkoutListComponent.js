@@ -20,7 +20,7 @@ const WorkoutListComponent = ( props ) => {
           deleteWorkout(workout._id)
           getWorkouts()
         }}>
-      <DeleteWorkoutButton style={styles.deleteButton} color={'darkgrey'} width={25}/>
+      <DeleteWorkoutButton style={styles.deleteButton} color={'grey'} width={10}/>
      </TouchableOpacity>
     </View>
   )
