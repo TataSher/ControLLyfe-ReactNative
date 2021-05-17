@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator  screenOptions={{headerTintColor: 'white', headerStyle: {backgroundColor: 'pink'}, headerBackTitle: "", headerTitle: ''}}>
+      <Stack.Navigator  screenOptions={{headerTintColor: 'white', headerStyle: {backgroundColor: 'pink'}, headerBackTitle: "", headerTitle: 'ControLLyfe'}}>
         <Stack.Screen name="Workout List">
         {props => <WorkoutListScreen {...props}/>}
           </Stack.Screen>

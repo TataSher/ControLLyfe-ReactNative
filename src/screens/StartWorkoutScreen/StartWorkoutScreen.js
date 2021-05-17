@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Button, StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { WorkoutTitleComponent } from '../../components/WorkoutTitleComponent';
 import { MinutesAndSeconds } from '../../HelperFunctions';
 
@@ -18,22 +18,23 @@ const IndividualExerciseComponent = ( props ) => {
     </View>
   )
 }
-const StartExerciseComponent = ( props ) => {
-  const { exercises = [] } = props 
 
-  console.log(exercises)
+// const StartExerciseComponent = ( props ) => {
+//   const { exercises = [] } = props 
 
-  return exercises.map((exercise, index) => {
+//   console.log(exercises)
 
-  return(
-    <View key={index} style={{position: 'retalive', flex: 1}}>
-      <ScrollView>
-        <IndividualExerciseComponent exercise={exercise} />
-      </ScrollView>
-    </View>
-    )
-  })
-};
+//   return exercises.map((exercise, index) => {
+
+//   return(
+//     <View key={index} style={{position: 'retalive', flex: 1}}>
+//       <ScrollView>
+//         <IndividualExerciseComponent exercise={exercise} />
+//       </ScrollView>
+//     </View>
+//     )
+//   })
+// };
 
 
 const StartWorkoutScreen = ( props ) => {
@@ -41,12 +42,27 @@ const StartWorkoutScreen = ( props ) => {
   const exercises = props.route.params.exercises
   const id = props.route.params.id
 
+  console.log(exercises)
+
   return(
     <View style={{position: 'retalive', flex: 1}}>
+      <WorkoutTitleComponent key={id} {...workout}/>
+
       <View style={styles.workoutTitle}>
-        <WorkoutTitleComponent key={id} {...workout}/>
+        <FlatList 
+        data={exercises}
+        keyExtractor={exercises => exercises._id.toString()}
+        horizontal
+        bounces={false}
+        showsHorizontalScrollIndicator={false}
+        style={{flexGrow: 0}}
+        renderItem={({item}) => {
+          return <IndividualExerciseComponent exercise={item} />
+        }}
+        />
+
       </View>
-      <StartExerciseComponent exercises={exercises} />
+      {/* <StartExerciseComponent exercises={exercises} /> */}
     </View>
   )
 }
