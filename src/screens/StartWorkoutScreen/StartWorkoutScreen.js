@@ -4,28 +4,10 @@ import { WorkoutTitleComponent, IndividualExerciseComponent } from '../../compon
 import { MinutesAndSeconds } from '../../HelperFunctions';
 import { StartWorkoutButton } from '../../SVGs';
 
-// const IndividualExerciseComponent = ( props ) => {
-//   const { exercise } = props
-//   return(
-//     <View style={{justifyContent: 'center', alignItems: 'center'}}>
-//       <View style={styles.exerciseTitleBox}>
-//         <Text style={styles.exerciseTitle} >{exercise.title}</Text>
-//         <Text style={styles.exerciseDescription} >{exercise.description}</Text>
-//         <Image source={{uri:exercise.image}} style={{height: 200, width: 200}} />
-//       </View>
-//       <View style={styles.timer}>
-//         <MinutesAndSeconds seconds={exercise.duration}/>
-//       </View>
-//     </View>
-//   )
-// }
-
 const StartWorkoutScreen = ( props ) => {
   const workout = props.route.params
   const exercises = props.route.params.exercises
   const id = props.route.params.id
-
-  console.log(exercises)
 
   const { width, height } = Dimensions.get('window')
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -35,6 +17,7 @@ const StartWorkoutScreen = ( props ) => {
   const [duration, setDuration] = useState(exercises[0].duration);
   const timerAnimation = React.useRef(new Animated.Value(height)).current;
   const animation = React.useCallback(() => {
+
     Animated.sequence([
 
       Animated.timing( timerAnimation, {
@@ -53,7 +36,6 @@ const StartWorkoutScreen = ( props ) => {
 
       })
     }, [duration])
-
 
   return(
     <View style={{flex: 1}}>
