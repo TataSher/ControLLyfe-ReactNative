@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const EditExercizeComponent = (props) => {
-  const { exercises, setTitle, setDescription, setSeconds, setMinutes, deleteExercize } = props
+  const { exercises, setTitle, setDescription, setSeconds, setMinutes, setIndex } = props
 
   return exercises.map((exercise, index) => {
      const title = exercise.title
@@ -22,8 +22,7 @@ const EditExercizeComponent = (props) => {
         setDescription(description)
         setSeconds(seconds)
         setMinutes(minutes)
-        // This function deletes an exerzise
-        // deleteExercize(index)
+        setIndex(index)
       }}
     >
       <View key={index} style={styles.exerciseBox}>
