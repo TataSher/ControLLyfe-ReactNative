@@ -1,28 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { Button, Image, StyleSheet, Text, Dimensions, View, Animated, TouchableOpacity, ScrollView, FlatList } from 'react-native';
-import { WorkoutTitleComponent } from '../../components/WorkoutTitleComponent';
+import { WorkoutTitleComponent, IndividualExerciseComponent } from '../../components';
 import { MinutesAndSeconds } from '../../HelperFunctions';
 import { StartWorkoutButton } from '../../SVGs';
 
-const IndividualExerciseComponent = ( props ) => {
-  const { exercise } = props
-
-  console.log(exercise.description)
-
-  return(
-    // <View style={{width: '50%', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-      <View style={styles.exerciseTitleBox}>
-        <Text style={styles.exerciseTitle} >{exercise.title}</Text>
-        <Text style={styles.exerciseDescription} >{exercise.description}</Text>
-        <Image source={{uri:exercise.image}} style={{height: 200, width: 200}} />
-      </View>
-      <View style={styles.timer}>
-        <MinutesAndSeconds seconds={exercise.duration}/>
-      </View>
-    </View>
-  )
-}
+// const IndividualExerciseComponent = ( props ) => {
+//   const { exercise } = props
+//   return(
+//     <View style={{justifyContent: 'center', alignItems: 'center'}}>
+//       <View style={styles.exerciseTitleBox}>
+//         <Text style={styles.exerciseTitle} >{exercise.title}</Text>
+//         <Text style={styles.exerciseDescription} >{exercise.description}</Text>
+//         <Image source={{uri:exercise.image}} style={{height: 200, width: 200}} />
+//       </View>
+//       <View style={styles.timer}>
+//         <MinutesAndSeconds seconds={exercise.duration}/>
+//       </View>
+//     </View>
+//   )
+// }
 
 const StartWorkoutScreen = ( props ) => {
   const workout = props.route.params
@@ -111,24 +107,6 @@ const StartWorkoutScreen = ( props ) => {
 }
 
 const styles = StyleSheet.create({
-  timer: {
-    justifyContent: 'center',
-    alignContent: 'center'
-  },
-  exerciseTitle: {
-    color: 'grey',
-    fontSize: 32,
-    marginTop: 35,
-  },
-  exerciseTitleBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  exerciseDescription: {
-    color: 'gray',
-    fontSize: 18,
-    marginTop: 100,
-  },
   workoutTitle: {
     alignItems: 'center',
     justifyContent: 'center'

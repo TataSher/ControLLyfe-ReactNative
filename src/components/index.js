@@ -3,3 +3,4 @@ export * from './AddExercizeComponent';
 export * from './ListExercizeComponent';
 export * from './ExerciseListComponent';
 export * from './WorkoutListComponent';
+export * from './IndividualExerciseComponent';
