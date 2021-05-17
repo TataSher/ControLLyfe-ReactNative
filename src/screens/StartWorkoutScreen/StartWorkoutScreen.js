@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Button, StyleSheet, Text, Dimensions, View, Animated, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Button, Image, StyleSheet, Text, Dimensions, View, Animated, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { WorkoutTitleComponent } from '../../components/WorkoutTitleComponent';
 import { MinutesAndSeconds } from '../../HelperFunctions';
 import { StartWorkoutButton } from '../../SVGs';
@@ -15,6 +15,7 @@ const IndividualExerciseComponent = ( props ) => {
       <View style={styles.exerciseTitleBox}>
         <Text style={styles.exerciseTitle} >{exercise.title}</Text>
         <Text style={styles.exerciseDescription} >{exercise.description}</Text>
+        <Image source={{uri:exercise.image}} style={{height: 200, width: 200}} />
       </View>
       <View style={styles.timer}>
         <MinutesAndSeconds seconds={exercise.duration}/>
@@ -114,14 +115,14 @@ const StartWorkoutScreen = ( props ) => {
         snapToInterval={ITEM_SPACING}
         renderItem={({item, index}) => {
           const nextUp = index + 1
-          console.log('next: ' + exercises[nextUp].title)
+          // console.log('next: ' + exercises[nextUp].title)
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
           <IndividualExerciseComponent exercise={item} />
         </View>
         }}
         />
         
-     
+
         <TouchableOpacity onPress={animation}>
           <StartWorkoutButton/>
         </TouchableOpacity>
