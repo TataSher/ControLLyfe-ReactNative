@@ -17,7 +17,6 @@ const EditExercizeComponent = (props) => {
     <TouchableOpacity 
       key={index}
       onPress={() => {
-        console.log(index)
         setTitle(title)
         setDescription(description)
         setSeconds(seconds)

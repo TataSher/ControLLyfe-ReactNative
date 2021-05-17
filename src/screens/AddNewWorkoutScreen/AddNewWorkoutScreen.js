@@ -8,7 +8,7 @@ import axios from 'axios';
 import { EditExercizeComponent } from '../../components/index'
 
 const AddNewWorkoutScreen = ( {navigation, route} ) => {
-  console.log(route.params)
+  // Maybe create an api component
   const postWorkout = async() => {
     await axios.post('http:localhost:3000/workout',
     {
@@ -46,9 +46,6 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
   const [exercizes, setExercizes] = useState([]);
   const [exercizeIndex, setExercizeIndex] = useState(false);
   const [image, setImage] = useState('');
-
-  const [curentExercize, setCurrentExcercize] = useState({seconds: 0, minutes: 0, exercizeTitle: ''})
-  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() =>{
     if (route.params) {
@@ -103,6 +100,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
 
   return(
     <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>
+      {/* Start OF COMP */}
     <View>
       <TextInput
         placeholder="Workout title"
@@ -148,6 +146,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
         onChangeText={(text) => setExercizeDescription(text)}
         value={exercizeDescription}
       />
+      {/* END OF COMP */}
       {editButton()}
       </View>     
     </View>
@@ -174,10 +173,11 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
             alert("Save Exercise before saving");
             return;
           }
+          // Would be better to check navigation rather than params?
           if (route.params) {
-            updateWorkout()
+            updateWorkout();
           } else {
-            postWorkout()
+            postWorkout();
           }
           
         }} 

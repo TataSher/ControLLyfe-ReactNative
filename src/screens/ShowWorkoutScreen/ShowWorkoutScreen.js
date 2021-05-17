@@ -20,7 +20,6 @@ const ShowWorkoutScreen = (props) => {
   }, [])
 
   // Need to create an ExerciseListComponent - same as WorkoutListComponent
-
   return (
     <View style={{flex: 1, position: 'relative'}}>
       <ScrollView>
