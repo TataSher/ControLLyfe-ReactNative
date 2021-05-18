@@ -16,9 +16,9 @@ const saveUser = (dispatch) => {
   return async (username, password, callback) => {
     await axios.post("http:localhost:3000/signup", { username, password })
       .then((res) => {
-        console.log(res.data.userId)
         // Should be token but could not get it working
-        dispatch({ type: 'save_user', payload: res.data.userId});
+        dispatch({ type: 'save_user', payload: {userId: res.data.userId, username: res.data.username}});
+
         if (callback) {
           callback();
         }

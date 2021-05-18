@@ -17,7 +17,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
     {
       workoutTitle: workoutTitle,
       exercises: exercizes,
-      user: state
+      user: state.userId
     })
       .then(() => {
         navigation.navigate('Workout List')
