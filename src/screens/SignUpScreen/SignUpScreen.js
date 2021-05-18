@@ -10,16 +10,18 @@ const SignUpScreen = ({navigation}) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
-  const createNewUser = async() => {
+  const createNewUser = async () => {
     await axios.post("http:localhost:3000/signup", 
     {
       username: userName,
       password: password
     })
-    navigation.navigate("Workout List")
+    .then(() => {
+      navigation.navigate('Workout List')
+    })
     .catch((error) => {
       console.log(error)
-    })
+    })    
   }
 
   return(
