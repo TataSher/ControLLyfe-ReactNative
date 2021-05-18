@@ -5511,6 +5511,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-native-flatlist-slider@^1.0.5":
+  "integrity" "sha512-RT4SLq0TlmAT5z+7c8jviFcX8UYMehyrudXAR7je3HkDilgnUMBPs/hG3zzlPAJ68TYW2ANIh7/Ht1THbWWydA=="
+  "resolved" "https://registry.npmjs.org/react-native-flatlist-slider/-/react-native-flatlist-slider-1.0.5.tgz"
+  "version" "1.0.5"
+
 "react-native-gesture-handler@*", "react-native-gesture-handler@>= 1.0.0", "react-native-gesture-handler@~1.10.2":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"

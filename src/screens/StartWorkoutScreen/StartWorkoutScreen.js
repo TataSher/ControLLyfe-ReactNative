@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { Button, Image, StyleSheet, Text, TextInput, Dimensions, View, Animated, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { Vibration, StyleSheet, TextInput, Dimensions, View, Animated, TouchableOpacity, FlatListRef } from 'react-native';
 import { WorkoutTitleComponent, IndividualExerciseComponent } from '../../components';
-import { MinutesAndSeconds } from '../../HelperFunctions';
 import { StartWorkoutButton } from '../../SVGs';
 
 const StartWorkoutScreen = ( props ) => {
@@ -10,14 +10,17 @@ const StartWorkoutScreen = ( props ) => {
   const id = props.route.params.id
 
   const { width, height } = Dimensions.get('window')
-  const scrollX = React.useRef(new Animated.Value(0)).current;
+  const scrollX = 0;
+
   const ITEM_SIZE = width;
   const ITEM_SPACING = (width - ITEM_SIZE);
+  const [nextIndex, setNextIndex] = useState(0)
 
   const [duration, setDuration] = useState(exercises[0].duration);
   const inputRef = React.useRef();
   const timerAnimation = React.useRef(new Animated.Value(height)).current;
   const textInputAnimation = React.useRef(new Animated.Value(exercises[0].duration)).current;
+  const scrollerAnimation = React.useRef(new Animated.Value(exercises[0].duration)).current;
 
   React.useEffect(() => {
     const listener = textInputAnimation.addListener(({value}) => {
@@ -29,6 +32,7 @@ const StartWorkoutScreen = ( props ) => {
     return () => {
       textInputAnimation.removeListener(listener)
       textInputAnimation.removeAllListeners();
+      setNextIndex(nextIndex + 1)
     }
   })
 
@@ -36,7 +40,7 @@ const StartWorkoutScreen = ( props ) => {
 
     Animated.sequence([
 
-      Animated.timing( timerAnimation, {
+      Animated.timing(timerAnimation, {
         toValue: 0,
         duration: 300,
         useNativeDriver: true
@@ -53,11 +57,26 @@ const StartWorkoutScreen = ( props ) => {
           duration: duration * 1000,
           useNativeDriver: true
         }),
-      ])
-        
+        Animated.timing(scrollerAnimation, {
+          toValue: nextIndex,
+          duration: duration * 1000,
+          useNativeDriver: true
+        })
+      ]),
+      Animated.delay(300)
       ]).start(() => {
-
-      })
+        Vibration.cancel();
+        Vibration.vibrate();
+        // Animated.timing(scrollerAnimation, {
+        //   toValue: nextIndex,
+        //   delay: duration * 1000,
+        //   useNativeDriver: true
+        // }).start(() => {
+          setNextIndex(nextIndex + 1)
+          flatListRef.scrollToIndex({animated: true, index: nextIndex + 1})
+          textInputAnimation.setValue(duration);  
+        // })
+      }) 
     }, [duration])
 
   return(
@@ -72,31 +91,33 @@ const StartWorkoutScreen = ( props ) => {
         }]
 
         }/>
-      <WorkoutTitleComponent key={id} {...workout}/>
-     
       <View style={styles.workoutTitle}>
+        <WorkoutTitleComponent key={id} {...workout}/>
+      </View>
+      <View style={styles.flatList}>
         <Animated.FlatList 
         data={exercises}
         keyExtractor={exercises => exercises._id.toString()}
         horizontal
         bounces={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          { useNativeDriver: true }
-        )
-        }
         onMomentumScrollEnd={ev => {
           const index = Math.round(ev.nativeEvent.contentOffset.x / ITEM_SIZE);
           setDuration(exercises[index].duration)
         }}
+        ref={(ref) => { flatListRef = ref; }}
         showsHorizontalScrollIndicator={false}
         snapToInterval={ITEM_SIZE}
-        style={{flexGrow: 0}}
+        style={StyleSheet.absoluteFillObject, {
+          height: 400,
+          width,
+          backgroundColor: 'blue',
+        }}
         contentContainerStyle={{
           paddingHorizontal: ITEM_SPACING,
         }}
-        snapToInterval={ITEM_SPACING}
+        scrollToIndex={{index: nextIndex, animated: true}}
         renderItem={({item}) => {
+
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
           <IndividualExerciseComponent exercise={item} />
         </View>
@@ -125,8 +146,16 @@ const StartWorkoutScreen = ( props ) => {
 
 const styles = StyleSheet.create({
   workoutTitle: {
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    color: 'black',
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+    margin: 10
+  },
+  flatList: {
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   duration: {
     fontSize: 40
