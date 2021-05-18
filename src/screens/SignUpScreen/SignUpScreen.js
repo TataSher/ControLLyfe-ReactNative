@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../../context/userContext'
 import { Button, ScrollView, StyleSheet, Text, TextInput, View, Dimensions, KeyboardAvoidingView } from 'react-native';
 import axios from 'axios';
 
 const SignUpScreen = ({navigation}) => {
+  const { saveUser } = useContext(Context);
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -11,17 +13,7 @@ const SignUpScreen = ({navigation}) => {
   const [password, setPassword] = useState('')
 
   const createNewUser = async () => {
-    await axios.post("http:localhost:3000/signup", 
-    {
-      username: userName,
-      password: password
-    })
-    .then(() => {
-      navigation.navigate('Workout List')
-    })
-    .catch((error) => {
-      console.log(error)
-    })    
+    saveUser(userName, password, () => navigation.navigate('Workout List'));
   }
 
   return(
