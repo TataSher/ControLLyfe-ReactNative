@@ -1,19 +1,23 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, useContext } from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { AddExercizeComponent } from '../../components/AddExercizeComponent'
 import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
-import { EditExercizeComponent } from '../../components/index'
+import { EditExercizeComponent } from '../../components/index';
+import { Context } from '../../context/userContext';
 
 const AddNewWorkoutScreen = ( {navigation, route} ) => {
-  // Maybe create an api component
+  const { state } = useContext(Context);
+  console.log(state)
+
   const postWorkout = async() => {
     await axios.post('http:localhost:3000/workout',
     {
       workoutTitle: workoutTitle,
-      exercises: exercizes
+      exercises: exercizes,
+      user: state
     })
       .then(() => {
         navigation.navigate('Workout List')

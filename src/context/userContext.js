@@ -5,8 +5,6 @@ const userReducer = (state, action) => {
   switch (action.type) {
     case 'save_user':
       return action.payload;
-    case 'get_user':
-      return state;
     case 'delete_user':
       return false;
     default:
@@ -14,22 +12,13 @@ const userReducer = (state, action) => {
   }
 };
 
-const getUser = (dispatch) => {
-  return (callback) => {
-    dispatch({ type: 'get_user', payload: "add stuff"});
-
-    if (callback) {
-      callback();
-    }
-  };
-};
-
 const saveUser = (dispatch) => {
   return async (username, password, callback) => {
     await axios.post("http:localhost:3000/signup", { username, password })
       .then((res) => {
-        console.log(res)
-        dispatch({ type: 'get_user', payload: res.data.token});
+        console.log(res.data.userId)
+        // Should be token but could not get it working
+        dispatch({ type: 'save_user', payload: res.data.userId});
         if (callback) {
           callback();
         }
@@ -42,6 +31,6 @@ const saveUser = (dispatch) => {
 
 export const { Context, Provider } = createDataContext(
   userReducer, 
-  { getUser, saveUser},
+  { saveUser },
   false
 );
