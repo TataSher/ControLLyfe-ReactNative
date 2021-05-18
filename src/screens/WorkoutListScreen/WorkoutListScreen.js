@@ -12,7 +12,17 @@ const WorkoutListScreen = ( {navigation} ) => {
 
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
-    setWorkouts(workouts.data)
+
+    var sortedWorkouts = workouts.data.sort((first, second) => {
+      if (first.updatedAt > second.updatedAt) {
+        return -1;
+      } else if (first.updatedAt < second.updatedAt) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+    setWorkouts(sortedWorkouts)
   }
 
   useEffect(() => {
