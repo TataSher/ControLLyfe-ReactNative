@@ -10,7 +10,6 @@ const StartWorkoutScreen = ( props ) => {
   const id = props.route.params.id
 
   const { width, height } = Dimensions.get('window')
-  const scrollX = 0;
 
   const ITEM_SIZE = width;
   const ITEM_SPACING = (width - ITEM_SIZE);
