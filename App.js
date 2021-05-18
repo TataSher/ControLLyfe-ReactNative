@@ -26,7 +26,7 @@ export default function App() {
         <Stack.Screen name="Show Workout">
           {props => <ShowWorkoutScreen {...props}/>}
         </Stack.Screen>    
-        <Stack.Screen name="Start Workout">
+        <Stack.Screen options={{headerShown: false}}  name="Start Workout" >
           {props => <StartWorkoutScreen {...props}/>}
         </Stack.Screen> 
       </Stack.Navigator>
