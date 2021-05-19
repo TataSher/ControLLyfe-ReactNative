@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   alignItems: 'center',
   },
   endWorkoutText: {
-    color: 'pink',
+    color: 'black',
     fontSize: 24,
     margin: 16
   },

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Dimensions, View, Animated } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { WorkoutTitleComponent, IndividualExerciseComponent } from '../../components';
 import { AnimatedCountDownBar } from '../../components'
+import { SkipExerciseButton } from '../../SVGs/SkipExerciseButton';
 
 const StartWorkoutScreen = ( props ) => {
   const workout = props.route.params
@@ -56,6 +58,9 @@ const StartWorkoutScreen = ( props ) => {
         renderItem={({item, index}) => {
 
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: height, position: 'relative'}}>
+            <TouchableOpacity onPress={() => onAnimationComplete()}>
+            <SkipExerciseButton width={20}/>
+          </TouchableOpacity>
           <AnimatedCountDownBar active={index === currentIndex && animating} {...item} {...{onAnimationComplete}}/> 
           <IndividualExerciseComponent exercise={item} />
         </View>

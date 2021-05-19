@@ -6,7 +6,7 @@ const AnimatedCountDownBar = ( props ) => {
   const { width, height } = Dimensions.get('window')
   const timerAnimation = React.useRef(new Animated.Value(0)).current;
   const inputRef = React.useRef();
-  const newHeight = height - 150
+  const newHeight = height - 170
 
   // This function changes the text to count down on the screen
   React.useEffect(() => {
