@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import { EditWorkoutButton, StartWorkoutButton } from '../../SVGs'
 import { ExerciseListComponent } from '../../components/index'
 import { MinutesAndSeconds } from '../../HelperFunctions';
@@ -49,6 +49,9 @@ const ShowWorkoutScreen = ( props ) => {
       <TouchableOpacity onPress={() => props.navigation.navigate('Start Workout', {workoutTitle: workoutTitle, exercises: exercises, id: id})}>
         <StartWorkoutButton style={styles.StartWorkoutButton} color={'darkgray'} fill={'darkgray'} />
       </TouchableOpacity>
+      <TouchableOpacity  onPress={() => props.navigation.navigate('End Workout', {workoutTitle: workoutTitle, exercises: exercises, id: id})}>
+        <Text style={styles.EndWorkoutButton}>End Workout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -83,6 +86,13 @@ const styles = StyleSheet.create({
     shadowRadius: 8, 
     shadowOffset: {width: 5, height: 5}, 
     shadowOpacity: 0.3
+  },
+  EndWorkoutButton: {
+    position: 'absolute', 
+    bottom: 50,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    shadowColor:'black', 
   }
 })
 
