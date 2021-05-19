@@ -17,10 +17,15 @@ const StartWorkoutScreen = ( props ) => {
   const [duration, setDuration] = useState(exercises[currentIndex].duration);
   const [animating, setAnimating] = useState(true)
 
+  
+  // This function does the automated scroll, and is activated after the countdown finishes
     const onAnimationComplete = () => {
       flatListRef.scrollToIndex({animated: true, index: currentIndex + 1})
     }
 
+  // Inside the Flatlist, in the RenderItem, two components are called, 
+  // in the AnimatedCountDownBar I've included the animations, 
+  // through the renderItem we pass it the state and props it needs in order to run.
   return(
     <View style={{flex: 1}}>
       <View style={styles.workoutTitle}>

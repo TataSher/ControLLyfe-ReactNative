@@ -8,6 +8,7 @@ const AnimatedCountDownBar = ( props ) => {
   const inputRef = React.useRef();
   const newHeight = height - 150
 
+  // This function changes the text to count down on the screen
   React.useEffect(() => {
     const listener = timerAnimation.addListener(({value}) => {
       inputRef?.current?.setNativeProps({
@@ -21,6 +22,8 @@ const AnimatedCountDownBar = ( props ) => {
     }
   })
 
+  // This function tells timerAnimation how long it will take to complete anything
+  // When done, it vibrates the phone, and tells the screen to scroll to the next item in the flatlist
   const animation = () => {
 
       Animated.timing(timerAnimation, {
@@ -34,16 +37,19 @@ const AnimatedCountDownBar = ( props ) => {
       })
   }
 
+  // This function tells our bar where to move, and where from
   const translate = timerAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [0, newHeight]
     })
 
+    // And this function tells our bar to change opacity
     const opacity = timerAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1]
     })
 
+    //This useEffect gets the state 'active' from the screen, and calls our timer to start
   React.useEffect(() => {
     if (active) {
       animation()
