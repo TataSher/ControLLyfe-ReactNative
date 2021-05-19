@@ -14,7 +14,7 @@ const EditExercizeComponent = (props) => {
      const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds
 
     return (
-    <TouchableOpacity 
+    <TouchableOpacity
       key={index}
       onPress={() => {
         setTitle(title)

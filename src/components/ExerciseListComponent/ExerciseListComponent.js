@@ -17,7 +17,7 @@ const ExerciseListComponent = (props) => {
         <Text style={styles.excerciseText}> {exercise.title} </Text>
         <View style={{margin: 8}}>
           <MinutesAndSeconds seconds={exercise.duration} />
-        </View> 
+        </View>
       </View>
       <Text style={styles.exerciseDescription}> {exercise.description}  </Text>
     </View>)
