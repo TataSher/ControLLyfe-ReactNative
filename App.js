@@ -18,18 +18,18 @@ export default function App() {
           {props => <SignInScreen {...props}/>}
         </Stack.Screen>
         <Stack.Screen name="Workout List">
-        {props => <WorkoutListScreen {...props}/>}
-          </Stack.Screen>
+           {props => <WorkoutListScreen {...props}/>}
+        </Stack.Screen>
         <Stack.Screen name="Add New Workout">
-        {props => <AddNewWorkoutScreen {...props}/>}
-          </Stack.Screen>
+          {props => <AddNewWorkoutScreen {...props}/>}
+        </Stack.Screen>
         <Stack.Screen name="Show Workout">
           {props => <ShowWorkoutScreen {...props}/>}
         </Stack.Screen>    
         <Stack.Screen options={{headerShown: false}}  name="Start Workout" >
           {props => <StartWorkoutScreen {...props}/>}
         </Stack.Screen> 
-        <Stack.Screen options={{headerShown: false}}  name="End Workout" >
+        <Stack.Screen  name="End Workout" >
           {props => <EndWorkoutScreen {...props}/>}
         </Stack.Screen> 
       </Stack.Navigator>
