@@ -8,7 +8,6 @@ import { useIsFocused } from '@react-navigation/native'
 const WorkoutListScreen = ( {navigation} ) => {
   const isFocused = useIsFocused()
   const [workouts, setWorkouts] = useState([])
-  const [pressed, setPressed] = useState(false)
 
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
@@ -37,7 +36,7 @@ const WorkoutListScreen = ( {navigation} ) => {
     <TouchableOpacity style={styles.LogoutButton} onPress={() => navigation.navigate('Sign Up Screen')}>
         <LogoutButton color={'darkgray'}/>
       </TouchableOpacity>
-    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout')}}>
+    <TouchableOpacity onPress={() => navigation.navigate('Add New Workout')}>
       <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'gray'}/>
     </TouchableOpacity>
     </View>
