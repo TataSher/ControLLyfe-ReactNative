@@ -34,10 +34,10 @@ const WorkoutListScreen = ( {navigation} ) => {
       <WorkoutListComponent navigation={navigation} workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
     <TouchableOpacity style={styles.LogoutButton} onPress={() => navigation.navigate('Sign Up Screen')}>
-        <LogoutButton color={'darkgray'}/>
+        <LogoutButton color={'darkgray'} height={50}/>
       </TouchableOpacity>
     <TouchableOpacity onPress={() => navigation.navigate('Add New Workout')}>
-      <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'gray'}/>
+      <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'darkgray'} width={50} height={50}/>
     </TouchableOpacity>
     </View>
   )
@@ -54,7 +54,11 @@ const styles = StyleSheet.create({
   },
   LogoutButton: {
     position: 'absolute',
-    bottom: 50, left: 30
+    bottom: 50, left: 30,
+    shadowColor:'black', 
+    shadowRadius: 8, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.15
   }
 })
 

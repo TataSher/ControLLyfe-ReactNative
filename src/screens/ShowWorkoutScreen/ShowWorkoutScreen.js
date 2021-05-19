@@ -44,10 +44,10 @@ const ShowWorkoutScreen = ( props ) => {
       <TouchableOpacity 
         onPress={() => props.navigation.navigate("Add New Workout", {workoutTitle, exercises, id: props.route.params.id})}
       >
-        <EditWorkoutButton style={styles.editWorkoutButton} color={'darkgray'} fill={'darkgray'}/>
+        <EditWorkoutButton style={styles.editWorkoutButton} color={'darkgray'} fill={'darkgray'}width={50} height={50}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => props.navigation.navigate('Start Workout', {workoutTitle: workoutTitle, exercises: exercises, id: id})}>
-        <StartWorkoutButton style={styles.StartWorkoutButton} color={'darkgray'} fill={'darkgray'} />
+        <StartWorkoutButton style={styles.StartWorkoutButton} color={'darkgray'} fill={'darkgray'} width={50} height={50}/>
       </TouchableOpacity>
     </View>
   );
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   StartWorkoutButton: {
     position: 'absolute', 
-    bottom: 50, right:30, 
+    bottom: 45, right:30, 
     shadowColor:'black', 
     shadowRadius: 8, 
     shadowOffset: {width: 5, height: 5}, 

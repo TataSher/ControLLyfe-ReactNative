@@ -20,7 +20,7 @@ const imageUri2 = 'https://media3.giphy.com/media/kyLYXonQYYfwYDIeZl/giphy.gif?c
       <Text style={styles.endWorkoutText}>Well Done!</Text>
     </View>
     <TouchableOpacity style={styles.HomeButton} onPress={() => props.navigation.navigate('Workout List')}>
-        <HomeButton color={'darkgray'} />
+        <HomeButton color={'darkgray'} width={50} height={50}/>
       </TouchableOpacity>
    </View>
   )
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     shadowColor:'black', 
     shadowRadius: 8, 
     shadowOffset: {width: 5, height: 5}, 
-    shadowOpacity: 0.3
+    shadowOpacity: 0.7
   }
 })
 
