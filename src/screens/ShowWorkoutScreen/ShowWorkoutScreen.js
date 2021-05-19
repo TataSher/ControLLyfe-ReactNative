@@ -49,9 +49,6 @@ const ShowWorkoutScreen = ( props ) => {
       <TouchableOpacity onPress={() => props.navigation.navigate('Start Workout', {workoutTitle: workoutTitle, exercises: exercises, id: id})}>
         <StartWorkoutButton style={styles.StartWorkoutButton} color={'darkgray'} fill={'darkgray'} />
       </TouchableOpacity>
-      <TouchableOpacity  onPress={() => props.navigation.navigate('End Workout', {workoutTitle: workoutTitle, exercises: exercises, id: id})}>
-        <Text style={styles.EndWorkoutButton}>End Workout</Text>
-      </TouchableOpacity>
     </View>
   );
 }

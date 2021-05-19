@@ -7,15 +7,10 @@ const StartWorkoutScreen = ( props ) => {
   const workout = props.route.params
   const exercises = props.route.params.exercises
   const id = props.route.params.id
-
-  console.log(props)
-
   const { width, height } = Dimensions.get('window')
-
   const ITEM_SIZE = width;
   const ITEM_SPACING = (width - ITEM_SIZE);
   const [currentIndex, setCurrentIndex] = useState(0)
-
   const [duration, setDuration] = useState(exercises[currentIndex].duration);
   const [animating, setAnimating] = useState(true)
 

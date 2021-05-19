@@ -17,7 +17,7 @@ export default function App() {
         <Stack.Screen name='Sign In Screen'>
           {props => <SignInScreen {...props}/>}
         </Stack.Screen>
-        <Stack.Screen name="Workout List">
+        <Stack.Screen options={{headerTruncatedBackTitle: false, headerLeft: null}} name="Workout List">
            {props => <WorkoutListScreen {...props}/>}
         </Stack.Screen>
         <Stack.Screen name="Add New Workout">
@@ -26,10 +26,10 @@ export default function App() {
         <Stack.Screen name="Show Workout">
           {props => <ShowWorkoutScreen {...props}/>}
         </Stack.Screen>    
-        <Stack.Screen options={{headerShown: false}}  name="Start Workout" >
+        <Stack.Screen options={{headerShown: false}} name="Start Workout" >
           {props => <StartWorkoutScreen {...props}/>}
         </Stack.Screen> 
-        <Stack.Screen  name="End Workout" >
+        <Stack.Screen options={{headerTruncatedBackTitle: false, headerLeft: null}} name="End Workout" >
           {props => <EndWorkoutScreen {...props}/>}
         </Stack.Screen> 
       </Stack.Navigator>
