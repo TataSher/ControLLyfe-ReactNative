@@ -4,19 +4,17 @@ import { Vibration, StyleSheet, TextInput, Dimensions, View, Animated, Touchable
 import { WorkoutTitleComponent, IndividualExerciseComponent } from '../../components';
 import { StartWorkoutButton } from '../../SVGs';
 
-const AnimatedViewBar = ( props ) => {
+const AnimatedCountDownBar = ( props ) => {
   const { active, duration, onAnimationComplete } = props
   const { width, height } = Dimensions.get('window')
   const timerAnimation = React.useRef(new Animated.Value(0)).current;
   const inputRef = React.useRef();
-  // const textInputAnimation = React.useRef(new Animated.Value(duration)).current;
+  const newHeight = height /2
 
   React.useEffect(() => {
     const listener = timerAnimation.addListener(({value}) => {
-      console.log('duration', duration)
-      console.log('value', value)
       inputRef?.current?.setNativeProps({
-        text: Math.ceil(value * (1 - duration)).toString()
+        text: Math.round(duration + (value * (1 - duration))).toString()
       })
     })
 
@@ -26,22 +24,8 @@ const AnimatedViewBar = ( props ) => {
     }
   })
 
-  // console.log('props', props)
-
-  const countDown = timerAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [duration, 0]
-  })
-
   const animation = () => {
 
-    // Animated.sequence([
-
-      // Animated.timing(timerAnimation, {
-      //   toValue: 0,
-      //   duration: 300,
-      //   useNativeDriver: true
-      // }),
       Animated.timing(timerAnimation, {
         toValue: 1,
         duration: duration * 1000,
@@ -50,12 +34,11 @@ const AnimatedViewBar = ( props ) => {
         console.log('here')
         onAnimationComplete()
       })
-    // ])
   }
 
   const translate = timerAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, height]
+      outputRange: [0, newHeight]
     })
 
   console.log(timerAnimation)
@@ -159,59 +142,7 @@ const StartWorkoutScreen = ( props ) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const [duration, setDuration] = useState(exercises[currentIndex].duration);
-  const inputRef = React.useRef();
-  const timerAnimation = React.useRef(new Animated.Value(height)).current;
-  const textInputAnimation = React.useRef(new Animated.Value(exercises[currentIndex].duration)).current;
-  const scrollerAnimation = React.useRef(new Animated.Value(exercises[currentIndex].duration)).current;
-  const [animating, setAnimating] = useState(false)
-
-  // React.useEffect(() => {
-  //   const listener = textInputAnimation.addListener(({value}) => {
-  //     inputRef?.current?.setNativeProps({
-  //       text: Math.ceil(value).toString()
-  //     })
-  //   })
-
-  //   return () => {
-  //     textInputAnimation.removeListener(listener)
-  //     textInputAnimation.removeAllListeners();
-  //   }
-  // })
-
-  // const animation = React.useCallback(() => {
-
-  //   Animated.sequence([
-
-      // Animated.timing(timerAnimation, {
-      //   toValue: 0,
-      //   duration: 300,
-      //   useNativeDriver: true
-      // }),
-
-      // Animated.parallel([
-        // Animated.timing(textInputAnimation, {
-        //   toValue: 0,
-        //   duration: duration * 1000,
-        //   useNativeDriver: true
-        // }),
-        // Animated.timing(timerAnimation, {
-        //   toValue: height,
-        //   duration: duration * 1000,
-        //   useNativeDriver: true
-        // }),
-        // Animated.timing(scrollerAnimation, {
-        //   toValue: currentIndex,
-        //   duration: duration * 1000,
-        //   useNativeDriver: true
-        // })
-      // ]),
-      // Animated.delay(300)
-      // ]).start(() => {
-      //   Vibration.cancel();
-      //   Vibration.vibrate();
-          // textInputAnimation.setValue(duration);
-    //   }) 
-    // }, [duration])
+  const [animating, setAnimating] = useState(true)
 
     const onAnimationComplete = () => {
       flatListRef.scrollToIndex({animated: true, index: currentIndex + 1})
@@ -219,22 +150,9 @@ const StartWorkoutScreen = ( props ) => {
 
   return(
     <View style={{flex: 1}}>
-       {/* <Animated.View 
-        style={[StyleSheet.absoluteFillObject, {
-          height,
-          width,
-          backgroundColor: 'pink',
-          transform: [{
-          translateY: timerAnimation}]
-        }]
-
-        }/> */}
       <View style={styles.workoutTitle}>
         <WorkoutTitleComponent key={id} {...workout}/>
       </View>
-      <TouchableOpacity onPress={() => setAnimating(true)}>
-          <StartWorkoutButton/>
-        </TouchableOpacity>
       <View style={styles.flatList}>
         <Animated.FlatList 
         data={exercises}
@@ -249,35 +167,21 @@ const StartWorkoutScreen = ( props ) => {
         ref={(ref) => { flatListRef = ref; }}
         showsHorizontalScrollIndicator={false}
         snapToInterval={ITEM_SIZE}
-        // style={StyleSheet.absoluteFillObject, {
-        //   height: 400,
-        //   width,
-        // }}
+        style={StyleSheet.absoluteFillObject, {
+          height,
+          width,
+        }}
         contentContainerStyle={{
           paddingHorizontal: ITEM_SPACING,
         }}
         renderItem={({item, index}) => {
 
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: height, position: 'relative'}}>
-          <AnimatedViewBar active={index === currentIndex && animating} {...item} {...{onAnimationComplete}}/> 
+          <AnimatedCountDownBar active={index === currentIndex && animating} {...item} {...{onAnimationComplete}}/> 
           <IndividualExerciseComponent exercise={item} />
-          {/* <AnimatedCountDownComponent duration={item.duration} active={index === currentIndex && animating}/> */}
         </View>
         }}
         />
-        {/* <Animated.View style={{
-          postition: 'absolute',
-          justifyContent: 'center',
-          width: ITEM_SIZE,
-          alignSelf: 'center',
-          alignItems: 'center'
-        }}>
-          <TextInput 
-            ref={inputRef}
-            style={styles.duration}
-            defaultValue={duration.toString()}
-          /> */}
-        {/* </Animated.View> */}
       </View>
     </View>
   )
