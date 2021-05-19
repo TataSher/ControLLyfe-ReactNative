@@ -13,13 +13,13 @@ const StartWorkoutScreen = ( props ) => {
 
   const ITEM_SIZE = width;
   const ITEM_SPACING = (width - ITEM_SIZE);
-  const [nextIndex, setNextIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const [duration, setDuration] = useState(exercises[0].duration);
+  const [duration, setDuration] = useState(exercises[currentIndex].duration);
   const inputRef = React.useRef();
   const timerAnimation = React.useRef(new Animated.Value(height)).current;
-  const textInputAnimation = React.useRef(new Animated.Value(exercises[0].duration)).current;
-  const scrollerAnimation = React.useRef(new Animated.Value(exercises[0].duration)).current;
+  const textInputAnimation = React.useRef(new Animated.Value(exercises[currentIndex].duration)).current;
+  const scrollerAnimation = React.useRef(new Animated.Value(exercises[currentIndex].duration)).current;
 
   React.useEffect(() => {
     const listener = textInputAnimation.addListener(({value}) => {
@@ -31,7 +31,6 @@ const StartWorkoutScreen = ( props ) => {
     return () => {
       textInputAnimation.removeListener(listener)
       textInputAnimation.removeAllListeners();
-      setNextIndex(nextIndex + 1)
     }
   })
 
@@ -57,7 +56,7 @@ const StartWorkoutScreen = ( props ) => {
           useNativeDriver: true
         }),
         Animated.timing(scrollerAnimation, {
-          toValue: nextIndex,
+          toValue: currentIndex,
           duration: duration * 1000,
           useNativeDriver: true
         })
@@ -66,15 +65,8 @@ const StartWorkoutScreen = ( props ) => {
       ]).start(() => {
         Vibration.cancel();
         Vibration.vibrate();
-        // Animated.timing(scrollerAnimation, {
-        //   toValue: nextIndex,
-        //   delay: duration * 1000,
-        //   useNativeDriver: true
-        // }).start(() => {
-          setNextIndex(nextIndex + 1)
-          flatListRef.scrollToIndex({animated: true, index: nextIndex + 1})
-          textInputAnimation.setValue(duration);  
-        // })
+          flatListRef.scrollToIndex({animated: true, index: currentIndex + 1})
+          textInputAnimation.setValue(duration);
       }) 
     }, [duration])
 
@@ -101,6 +93,7 @@ const StartWorkoutScreen = ( props ) => {
         bounces={false}
         onMomentumScrollEnd={ev => {
           const index = Math.round(ev.nativeEvent.contentOffset.x / ITEM_SIZE);
+          setCurrentIndex(index)
           setDuration(exercises[index].duration)
         }}
         ref={(ref) => { flatListRef = ref; }}
@@ -114,7 +107,6 @@ const StartWorkoutScreen = ( props ) => {
         contentContainerStyle={{
           paddingHorizontal: ITEM_SPACING,
         }}
-        scrollToIndex={{index: nextIndex, animated: true}}
         renderItem={({item}) => {
 
           return <View style={{width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
