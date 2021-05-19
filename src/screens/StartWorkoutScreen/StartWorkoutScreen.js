@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, View, Animated } from 'react-native';
+import { StyleSheet, Dimensions, View, Animated, FlatListRef } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { WorkoutTitleComponent, IndividualExerciseComponent } from '../../components';
 import { AnimatedCountDownBar } from '../../components'
@@ -25,6 +25,7 @@ const StartWorkoutScreen = ( props ) => {
         props.navigation.navigate("End Workout", {workoutTitle: workout.workoutTitle, exercises: exercises, id: id} )
       }
     }
+
 
   // Inside the Flatlist, in the RenderItem, two components are called, 
   // in the AnimatedCountDownBar I've included the animations, 
