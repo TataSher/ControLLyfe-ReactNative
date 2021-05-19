@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, View, TouchableOpacity, Modal } from 'react-native';
 import axios from 'axios';
 import { WorkoutListComponent } from '../../components';
 import { AddNewExercizeButton, LogoutButton } from '../../SVGs';
 import { useIsFocused } from '@react-navigation/native'
 
-const WorkoutListScreen = ( {navigation} ) => {
+const WorkoutListScreen = ( props ) => {
   const isFocused = useIsFocused()
   const [workouts, setWorkouts] = useState([])
 
@@ -24,19 +24,30 @@ const WorkoutListScreen = ( {navigation} ) => {
     setWorkouts(sortedWorkouts)
   }
 
+  console.log(props.route)
+
+  const walkthrough = () => {
+    return(
+      <View></View>
+    )
+  }
+
   useEffect(() => {
       getWorkouts();
   }, [isFocused])
 
   return(
     <View style={{flex: 1, position: 'relative'}}>
+      <Modal visible={modal} animationType={'slide'} transparent={false}>
+        
+      </Modal>
     <ScrollView>
-      <WorkoutListComponent navigation={navigation} workouts={workouts} {...{getWorkouts}} />
+      <WorkoutListComponent navigation={props.navigation} workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
-    <TouchableOpacity style={styles.LogoutButton} onPress={() => navigation.navigate('Sign Up Screen')}>
+    <TouchableOpacity style={styles.LogoutButton} onPress={() => props.navigation.navigate('Sign Up Screen')}>
         <LogoutButton color={'darkgray'} height={50}/>
       </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate('Add New Workout')}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('Add New Workout')}>
       <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'darkgray'} width={50} height={50}/>
     </TouchableOpacity>
     </View>
