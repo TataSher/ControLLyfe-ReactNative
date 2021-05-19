@@ -41,8 +41,8 @@ const AddExercizeComponent = ( props ) => {
     })
   }
 
-  const secondsArray = [60, 50, 40, 30, 20, 10, 0]
-  const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+  const secondsArray = [...Array(59).keys()].map((i) => (i === 0 ? 1 : i + 1));
+  const minutesArray = [...Array(60).keys()].map((i) => (i === 0 ? 1 : i + 1));
 
   return(
     <View style={{flex: 1, position: 'relative'}}>

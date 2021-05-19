@@ -9,6 +9,7 @@ const WorkoutListComponent = ( props ) => {
   
   const deleteWorkout = async(id) => {
     const res = await axios.delete(`http://localhost:3000/workout/${id}`)
+    .then(alert('Succesfully deleted workout'))
   }
   
   return workouts.map((workout) =>
