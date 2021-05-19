@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { WorkoutListScreen, AddNewWorkoutScreen, ShowWorkoutScreen, StartWorkoutScreen, SignUpScreen, SignInScreen } from './src/screens';
+import { WorkoutListScreen, AddNewWorkoutScreen, ShowWorkoutScreen, StartWorkoutScreen, SignUpScreen, SignInScreen, EndWorkoutScreen } from './src/screens';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +28,9 @@ export default function App() {
         </Stack.Screen>    
         <Stack.Screen options={{headerShown: false}}  name="Start Workout" >
           {props => <StartWorkoutScreen {...props}/>}
+        </Stack.Screen> 
+        <Stack.Screen options={{headerShown: false}}  name="End Workout" >
+          {props => <EndWorkoutScreen {...props}/>}
         </Stack.Screen> 
       </Stack.Navigator>
     </NavigationContainer>
