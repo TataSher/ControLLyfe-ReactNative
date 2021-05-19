@@ -8,6 +8,8 @@ const StartWorkoutScreen = ( props ) => {
   const exercises = props.route.params.exercises
   const id = props.route.params.id
 
+  console.log(props)
+
   const { width, height } = Dimensions.get('window')
 
   const ITEM_SIZE = width;
@@ -20,7 +22,11 @@ const StartWorkoutScreen = ( props ) => {
   
   // This function does the automated scroll, and is activated after the countdown finishes
     const onAnimationComplete = () => {
+      if (currentIndex < exercises.length - 1) {
       flatListRef.scrollToIndex({animated: true, index: currentIndex + 1})
+      } else {
+        props.navigation.navigate("End Workout", {workoutTitle: workout.workoutTitle, exercises: exercises, id: id} )
+      }
     }
 
   // Inside the Flatlist, in the RenderItem, two components are called, 
