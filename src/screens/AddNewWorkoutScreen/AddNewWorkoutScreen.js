@@ -1,13 +1,13 @@
 import React, { Component, useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
-import { AddExercizeComponent } from '../../components/AddExercizeComponent'
-import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
-import { EditExercizeComponent } from '../../components/index'
+import { EditExercizeComponent } from '../../components/index';
+import * as ImagePicker from 'expo-image-picker';
 
-const AddNewWorkoutScreen = ( {navigation, route} ) => {
+const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
   // Maybe create an api component
   const postWorkout = async() => {
     await axios.post('http:localhost:3000/workout',
@@ -16,7 +16,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
       exercises: exercizes
     })
       .then(() => {
-        navigation.navigate('Workout List')
+        props.navigation.navigate('Workout List')
       })
       .catch((error) => {
         console.log(error)
@@ -24,14 +24,14 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
   }
   // Could go back to the particular workout's id.
   const updateWorkout = async () => {
-    
-    await axios.put(`http:localhost:3000/workout/${route.params.id}`,
+
+    await axios.put(`http:localhost:3000/workout/${props.route.params.id}`,
     {
       workoutTitle: workoutTitle,
       exercises: exercizes
     })
       .then(() => {
-        navigation.navigate('Workout List')
+        props.navigation.navigate('Workout List')
       })
       .catch((error) => {
         console.log(error)
@@ -45,13 +45,15 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
   const [minutes, setMinutes] = useState(0);
   const [exercizes, setExercizes] = useState([]);
   const [exercizeIndex, setExercizeIndex] = useState(false);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
 
   useEffect(() =>{
-    if (route.params) {
-      setWorkoutTitle(route.params.workoutTitle);
-      setExercizes(route.params.exercises);
+    var routeStack = props.navigation.dangerouslyGetState().routes;
+    if (routeStack[routeStack.length - 2].name == 'Show Workout') {
+      setWorkoutTitle(props.route.params.workoutTitle);
+      setExercizes(props.route.params.exercises);
     }
+
   }, [])
 
   const deleteExercize = (index) => {
@@ -64,22 +66,37 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
     setExercizeDescription('');
     setSeconds(0);
     setMinutes(0);
+    setImage(null);
   }
 
   const SaveAndAdd = () => {
-    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)})
+    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes), 'image': image})
+    console.log(exercizes)
     resetForm();
-    console.log(exercizes);
   }
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    console.log(result.uri);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const editButton = () => {
     if (exercizeIndex !== false) {
       return (
         <View>
-          <Button 
+          <Button
             title="Save Exercise"
             onPress={() => {
-              exercizes[exercizeIndex] = {'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)}
+              exercizes[exercizeIndex] = {'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes), 'image': image}
               setExercizeIndex(false)
               resetForm();
             }}
@@ -148,12 +165,16 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
         onChangeText={(text) => setExercizeDescription(text)}
         value={exercizeDescription}
       />
-      {/* END OF COMP */}
+    {/* END OF COMP */}
       {editButton()}
-      </View>     
+      </View>
+      <View>
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      </View>
     </View>
     <ScrollView>
-      <EditExercizeComponent 
+      <EditExercizeComponent
         exercises={exercizes}
         setTitle={setExercizeTitle}
         setDescription={setExercizeDescription}
@@ -161,28 +182,31 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
         setMinutes={setMinutes}
         deleteExercize={deleteExercize}
         setIndex={setExercizeIndex}
+        setImage={setImage}
       />
 
     </ScrollView>
+
       <SafeAreaView>
       <TouchableOpacity style={styles.button} onPress={() => SaveAndAdd()}>
         <AddNewExercizeButton  color={'darkgrey'} fill={'darkgrey'} width={50} height={50}/>
       </TouchableOpacity>
-      <TouchableOpacity 
-        style={styles.saveButton} 
+      <TouchableOpacity
+        style={styles.saveButton}
         onPress={() => {
           if (exercizeIndex !== false) {
             alert("Save Exercise before saving");
             return;
           }
           // Would be better to check navigation rather than params?
-          if (route.params) {
+          var routeStack = props.navigation.dangerouslyGetState().routes;
+          if (routeStack[routeStack.length - 2].name == 'Show Workout') {
             updateWorkout();
           } else {
             postWorkout();
           }
-          
-        }} 
+
+        }}
       >
         <SaveButton  color={'darkgrey'}/>
       </TouchableOpacity>
@@ -219,20 +243,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   button: {
-    position: 'absolute', 
-    bottom: 40, left: 40, 
-    shadowColor:'black', 
-    shadowRadius: 8, 
-    shadowOffset: {width: 5, height: 5}, 
+    position: 'absolute',
+    bottom: 40, left: 40,
+    shadowColor:'black',
+    shadowRadius: 8,
+    shadowOffset: {width: 5, height: 5},
     shadowOpacity: 0.3
   },
   saveButton: {
     position: 'absolute',
     bottom: 40, right: 40,
-    shadowRadius: 5, 
-    shadowOffset: {width: 5, height: 5}, 
+    shadowRadius: 5,
+    shadowOffset: {width: 5, height: 5},
     shadowOpacity: 0.3,
-    shadowColor:'black', 
+    shadowColor:'black',
   }
 })
 
