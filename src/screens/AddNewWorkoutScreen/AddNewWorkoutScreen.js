@@ -97,8 +97,8 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
     }
   }
 
-  const secondsArray = [...Array(59).keys()].map((i) => (i === 0 ? 1 : i + 1));
-  const minutesArray = [...Array(60).keys()].map((i) => (i === 0 ? 1 : i + 1));
+  const secondsArray = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55]
+  const minutesArray = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60];
 
   return(
     <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>

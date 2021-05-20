@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { WorkoutListComponent } from '../../components';
-import { AddNewExercizeButton } from '../../SVGs';
+import { AddNewExercizeButton, LogoutButton } from '../../SVGs';
 import { useIsFocused } from '@react-navigation/native'
 
 const WorkoutListScreen = ( {navigation} ) => {
   const isFocused = useIsFocused()
   const [workouts, setWorkouts] = useState([])
-  const [pressed, setPressed] = useState(false)
 
   const getWorkouts = async() => {
     const workouts = await axios.get('http://localhost:3000/workout')
@@ -34,8 +33,11 @@ const WorkoutListScreen = ( {navigation} ) => {
     <ScrollView>
       <WorkoutListComponent navigation={navigation} workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
-    <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout')}}>
-      <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'gray'}/>
+    <TouchableOpacity style={styles.LogoutButton} onPress={() => navigation.navigate('Sign Up Screen')}>
+        <LogoutButton color={'darkgray'} height={50}/>
+      </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Add New Workout')}>
+      <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'darkgray'} width={50} height={50}/>
     </TouchableOpacity>
     </View>
   )
@@ -50,6 +52,14 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 5, height: 5}, 
     shadowOpacity: 0.3
   },
+  LogoutButton: {
+    position: 'absolute',
+    bottom: 50, left: 30,
+    shadowColor:'black', 
+    shadowRadius: 8, 
+    shadowOffset: {width: 5, height: 5}, 
+    shadowOpacity: 0.15
+  }
 })
 
 export { WorkoutListScreen }

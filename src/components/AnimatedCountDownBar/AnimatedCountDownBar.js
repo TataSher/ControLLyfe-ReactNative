@@ -11,8 +11,9 @@ const AnimatedCountDownBar = ( props ) => {
   // This function changes the text to count down on the screen
   React.useEffect(() => {
     const listener = timerAnimation.addListener(({value}) => {
+      const number = (duration + (value * (1 - duration))).toFixed()
       inputRef?.current?.setNativeProps({
-        text: (duration + (value * (1 - duration))).toFixed()
+        text:  number < 10 ? `0${number}` : number 
       })
     })
 
@@ -29,7 +30,7 @@ const AnimatedCountDownBar = ( props ) => {
       Animated.timing(timerAnimation, {
         toValue: 1,
         duration: duration * 1000,
-        useNativeDriver: true
+        useNativeDriver: false
       }).start(() => {
         Vibration.cancel()
         Vibration.vibrate()
@@ -45,8 +46,14 @@ const AnimatedCountDownBar = ( props ) => {
 
     // And this function tells our bar to change opacity
     const opacity = timerAnimation.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1]
+      inputRange: [0, 0.2, 1],
+      outputRange: [0, 0.6, 1]
+    })
+
+    // This function changes the colour of our bar
+    const backgroundColor = timerAnimation.interpolate({
+      inputRange: [0, 0.3, 1],
+      outputRange: ['yellow', 'pink', 'coral']
     })
 
     //This useEffect gets the state 'active' from the screen, and calls our timer to start
@@ -63,7 +70,7 @@ const AnimatedCountDownBar = ( props ) => {
           position: 'absolute',
           height,
           width,
-          backgroundColor: 'blue',
+          backgroundColor: backgroundColor,
           opacity: opacity,
           transform: [{
           translateY: translate}]
@@ -78,7 +85,7 @@ const AnimatedCountDownBar = ( props ) => {
           }}>
             <TextInput 
               ref={inputRef}
-              style={{fontSize: 40}}
+              style={{fontSize: 40, width: 70, justifyContent: 'center', alignItems: 'center'}}
               defaultValue={duration.toString()}
             />
           </View>
