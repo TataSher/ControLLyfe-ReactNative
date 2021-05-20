@@ -85,7 +85,7 @@ const AnimatedCountDownBar = ( props ) => {
           }}>
             <TextInput 
               ref={inputRef}
-              style={{fontSize: 40, width: 50, justifyContent: 'center', alignItems: 'center'}}
+              style={{fontSize: 40, width: 70, justifyContent: 'center', alignItems: 'center'}}
               defaultValue={duration.toString()}
             />
           </View>
