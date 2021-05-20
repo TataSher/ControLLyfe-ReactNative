@@ -5,4 +5,5 @@ export * from './ExerciseListComponent';
 export * from './EditExercizeComponent';
 export * from './WorkoutListComponent';
 export * from './IndividualExerciseComponent';
+export * from './AnimatedCountDownBar';
 

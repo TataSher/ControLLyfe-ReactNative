@@ -4,3 +4,4 @@ export * from './ShowWorkoutScreen';
 export * from './StartWorkoutScreen';
 export * from './SignUpScreen';
 export * from './SignInScreen';
+export * from './EndWorkoutScreen';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { WorkoutListComponent } from '../../components';
-import { AddNewWorkoutButton } from '../../SVGs';
+import { AddNewExercizeButton } from '../../SVGs';
 import { useIsFocused } from '@react-navigation/native'
 
 const WorkoutListScreen = ( {navigation} ) => {
@@ -35,7 +35,7 @@ const WorkoutListScreen = ( {navigation} ) => {
       <WorkoutListComponent navigation={navigation} workouts={workouts} {...{getWorkouts}} />
     </ScrollView>
     <TouchableOpacity onPress={() => {setPressed(true); navigation.navigate('Add New Workout')}}>
-      <AddNewWorkoutButton style={styles.button} fill={'lightblue'}/>
+      <AddNewExercizeButton style={styles.button} color={'darkgray'} fill={'gray'}/>
     </TouchableOpacity>
     </View>
   )
