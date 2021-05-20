@@ -50,6 +50,7 @@ const AnimatedCountDownBar = ( props ) => {
       outputRange: [0, 0.6, 1]
     })
 
+    // This function changes the colour of our bar
     const backgroundColor = timerAnimation.interpolate({
       inputRange: [0, 0.3, 1],
       outputRange: ['yellow', 'pink', 'coral']
