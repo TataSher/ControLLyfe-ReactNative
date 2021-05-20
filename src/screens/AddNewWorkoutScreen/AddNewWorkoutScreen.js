@@ -88,6 +88,7 @@ const AddNewWorkoutScreen = ( {navigation, route} ) => {
             title="Delete Exercise"
             onPress={() => {
               deleteExercize(exercizeIndex)
+              setExercizeIndex(false)
               resetForm();
             }}
           />
