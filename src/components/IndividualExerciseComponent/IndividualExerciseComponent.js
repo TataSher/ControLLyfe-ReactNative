@@ -11,31 +11,22 @@ const IndividualExerciseComponent = ( props ) => {
         <Text style={styles.exerciseDescription} >{exercise.description}</Text>
         <Image source={{uri:exercise.image}} style={{height: 200, width: 200}} />
       </View>
-      <View style={styles.timer}>
-        <MinutesAndSeconds seconds={exercise.duration}/>
-      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  timer: {
-    justifyContent: 'center',
-    alignContent: 'center'
-  },
   exerciseTitle: {
-    color: 'grey',
-    fontSize: 32,
-    marginTop: 35,
+    fontSize: 48,
   },
   exerciseTitleBox: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   exerciseDescription: {
-    color: 'gray',
-    fontSize: 18,
-    marginTop: 100,
+    fontSize: 32,
+    marginTop: 20,
+    marginBottom: 40
   },
 })
 export { IndividualExerciseComponent }

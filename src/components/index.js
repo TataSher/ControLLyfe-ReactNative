@@ -6,3 +6,4 @@ export * from './EditExercizeComponent';
 export * from './WorkoutListComponent';
 export * from './IndividualExerciseComponent';
 export * from './ImagePickerComponent';
+export * from './AnimatedCountDownBar';

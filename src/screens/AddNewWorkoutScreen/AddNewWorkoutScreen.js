@@ -105,6 +105,7 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
             title="Delete Exercise"
             onPress={() => {
               deleteExercize(exercizeIndex)
+              setExercizeIndex(false)
               resetForm();
             }}
           />
@@ -112,8 +113,9 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
       )
     }
   }
-  const secondsArray = [50, 40, 30, 20, 10, 0]
-  const minutesArray = [60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+
+  const secondsArray = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55]
+  const minutesArray = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60];
 
   return(
     <KeyboardAvoidingView style={{flex: 1, position: 'relative'}}>
