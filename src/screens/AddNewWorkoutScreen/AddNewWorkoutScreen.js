@@ -1,10 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
-import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { AddNewExercizeButton } from '../../SVGs/AddNewExercizeButton';
 import { SaveButton } from '../../SVGs';
 import axios from 'axios';
-import { EditExercizeComponent, ImagePickerComponent } from '../../components/index';
+import { EditExercizeComponent } from '../../components/index';
+import * as ImagePicker from 'expo-image-picker';
 
 const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
   // Maybe create an api component
@@ -65,12 +66,28 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
     setExercizeDescription('');
     setSeconds(0);
     setMinutes(0);
+    setImage(null);
   }
 
   const SaveAndAdd = () => {
-    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)})
+    exercizes.push({'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes), 'image': image})
+    console.log(exercizes)
     resetForm();
   }
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    console.log(result.uri);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const editButton = () => {
     if (exercizeIndex !== false) {
@@ -79,7 +96,7 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
           <Button
             title="Save Exercise"
             onPress={() => {
-              exercizes[exercizeIndex] = {'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes)}
+              exercizes[exercizeIndex] = {'title': exercizeTitle, 'description': exercizeDescription, 'duration': seconds + (60 * minutes), 'image': image}
               setExercizeIndex(false)
               resetForm();
             }}
@@ -149,8 +166,11 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
     {/* END OF COMP */}
       {editButton()}
       </View>
+      <View>
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      </View>
     </View>
-    <ImagePickerComponent/>
     <ScrollView>
       <EditExercizeComponent
         exercises={exercizes}
@@ -160,6 +180,7 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
         setMinutes={setMinutes}
         deleteExercize={deleteExercize}
         setIndex={setExercizeIndex}
+        setImage={setImage}
       />
 
     </ScrollView>
@@ -177,7 +198,6 @@ const AddNewWorkoutScreen = ( props, {navigation, route} ) => {
           }
           // Would be better to check navigation rather than params?
           var routeStack = props.navigation.dangerouslyGetState().routes;
-          console.log(routeStack);
           if (routeStack[routeStack.length - 2].name == 'Show Workout') {
             updateWorkout();
           } else {
