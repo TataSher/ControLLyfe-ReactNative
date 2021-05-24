@@ -1,8 +1,26 @@
 ## How to run this app
 
-npm i
-make sure the server is running
-expo start
+- Clone [this](https://github.com/Emmapr123/controLLyfe) repo, and follow the instructions in the readme
+- Clone this repo
+- npm i
+- expo start
+
+## Demo
+
+https://www.youtube.com/watch?v=bZhHE9JzdiE
+
+## Features
+
+- As a user, I can make a new account, to wign up with
+- As a signed up user, to keep up my exercise schedule, I can see a list of workouts
+- As a signed up user, to be in charge of my own workouts, I can add a new workout
+- As a signed in user, to be in charge of my own workouts, I can edit existing workouts
+- As a signed in user, to be in charge of my own workouts, I can delete existing workouts
+- As a keen user, to do a workout, I can start a workout
+- As a lazy user, when I donnot feel to keen about an exercise, I can skip a workout
+- As a sporty user, when done with my workout, I get a complement and an elmo dance when I am done
+- As a user, to keep my profile to myself, I can log out
+- As a user, to get back to my list of workouts, I can log in 
 
 ## Setting up a react-natvie app 
 
@@ -35,16 +53,6 @@ npm install axios
 
 npm install react-time-picker
 Explanation to be found [here](https://github.com/react-native-picker/picker#mode)
-
-## Test environment
-
-yarn add --dev @testing-library/react-native
-
-yarn add --dev @testing-library/jest-native
-
-
-
-
 
 
 
