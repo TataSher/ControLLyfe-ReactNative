@@ -1,9 +1,14 @@
 # FitLyfe
 
+## Description
+A fitness phone app which lets you create and track customisable workouts!
+You can add your own descriptions and images, set up timing for each exercise and enjoy your workout just the way you like it.
+The phone app has lots of enjoyable features like animations linked to the timer, fun end-of-workout screen and beautiful SVG buttons.
 
+## Presentation
+https://youtu.be/avCYlOvstGc?t=653
 
 ## Demo
-
 https://www.youtube.com/watch?v=bZhHE9JzdiE
 
 ## Features
@@ -21,8 +26,8 @@ https://www.youtube.com/watch?v=bZhHE9JzdiE
 
 ## How to run this app
 
-- Clone [this](https://github.com/Emmapr123/controLLyfe) repo, and follow the instructions in the readme
-- Clone this repo
+- Clone [this](https://github.com/TataSher/FitLyfe-React) repo
+- Clone [this](https://github.com/TataSher/FitLyfe-Server) repo
 - npm i
 - expo start
 
@@ -44,17 +49,14 @@ run npm install axios
 expo install react-native-svg
 
 ### for our navigation
-
 npm install @react-navigation/navigate
 npm install @react-navigation/stack
 expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 
-## for our get/post/... requests
-
+### for our get/post/... requests
 npm install axios
 
-## Time Picker
-
+### Time Picker
 npm install react-time-picker
 Explanation to be found [here](https://github.com/react-native-picker/picker#mode)
 
