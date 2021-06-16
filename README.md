@@ -27,7 +27,7 @@ https://www.youtube.com/watch?v=bZhHE9JzdiE
 ## How to run this app
 
 - Clone [this](https://github.com/TataSher/FitLyfe-React) repo
-- Clone [this](https://github.com/TataSher/FitLyfe-Server) repo
+- Clone [this](https://github.com/TataSher/FitLyfe-Server) repo and follow the README instructions
 - npm i
 - expo start
 
