@@ -1,4 +1,4 @@
-# FitLyfe
+# FitLyst
 
 ## Description
 A fitness phone app which lets you create and track customisable workouts!
