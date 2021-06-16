@@ -54,5 +54,6 @@ npm install axios
 npm install react-time-picker
 Explanation to be found [here](https://github.com/react-native-picker/picker#mode)
 
+## Team
 
-
+Emma Priester | Tarandeep Nandhra | Ralph Bartley | Natalia Sherchenkova
