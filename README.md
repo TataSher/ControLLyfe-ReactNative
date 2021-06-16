@@ -1,9 +1,6 @@
-## How to run this app
+# FitLyfe
 
-- Clone [this](https://github.com/Emmapr123/controLLyfe) repo, and follow the instructions in the readme
-- Clone this repo
-- npm i
-- expo start
+
 
 ## Demo
 
@@ -21,6 +18,13 @@ https://www.youtube.com/watch?v=bZhHE9JzdiE
 - As a sporty user, when done with my workout, I get a complement and an elmo dance when I am done
 - As a user, to keep my profile to myself, I can log out
 - As a user, to get back to my list of workouts, I can log in 
+
+## How to run this app
+
+- Clone [this](https://github.com/Emmapr123/controLLyfe) repo, and follow the instructions in the readme
+- Clone this repo
+- npm i
+- expo start
 
 ## Setting up a react-natvie app 
 
