@@ -1,5 +1,11 @@
-# FitLyst
-
+<h1 align='center'>
+  FitLyst
+</h1>
+ <div id="patternLogo" align='center'>
+  <img src="https://github.com/TataSher/FitLyst-ReactNative/blob/main/assets/FitLyst.jpg" style="background-repeat: repeat-x;height: 100px;"/>
+</div>
+ </p>
+ 
 ## Description
 A fitness phone app which lets you create and track customisable workouts!
 You can add your own descriptions and images, set up timing for each exercise and enjoy your workout just the way you like it.
