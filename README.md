@@ -13,8 +13,15 @@ https://www.youtube.com/watch?v=bZhHE9JzdiE
 
 ## Features
 
-- A user can sign up and create a new account that will be stored in MongoDB database
+ - A user can sign up and create a new account that will be stored in MongoDB database
+ 
+ ![Alt Text](https://j.gifs.com/WPQJ6X.gif)
+ 
+
 - An existing user can log in 
+
+ ![Alt Text](https://j.gifs.com/gpnoJl.gif)
+ 
 - User can see the list of previously created workouts
 - User can add a new workout with a name, description, time and image
 - User can edit workouts
