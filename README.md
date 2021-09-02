@@ -23,7 +23,17 @@ https://www.youtube.com/watch?v=bZhHE9JzdiE
  ![Alt Text](https://j.gifs.com/gpnoJl.gif)
  
 - User can see the list of previously created workouts
-- User can add a new workout with a name, description, time and image
+
+![Alt Text](https://j.gifs.com/oZjzQA.gif)
+
+- User can see the previously created workout
+
+![Alt Text](https://j.gifs.com/GRMm5r.gif)
+
+- User can add a new workout with a title and add exercises with a names, descriptions, time and images
+  
+ ![Alt Text](https://j.gifs.com/OgPxyB.gif)
+  
 - User can edit workouts
 - User can delete workouts
 - User can start a workout and see the exercises with a timer, changing colour bar connected with the timer automatically.
