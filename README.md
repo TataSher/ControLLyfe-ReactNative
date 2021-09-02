@@ -15,32 +15,43 @@ https://www.youtube.com/watch?v=bZhHE9JzdiE
 
  - A user can sign up and create a new account that will be stored in MongoDB database
  
- ![Alt Text](https://j.gifs.com/WPQJ6X.gif)
+ ![Sign In](https://j.gifs.com/WPQJ6X.gif)
  
 
 - An existing user can log in 
 
- ![Alt Text](https://j.gifs.com/gpnoJl.gif)
+ ![Log In](https://j.gifs.com/gpnoJl.gif)
  
 - User can see the list of previously created workouts
 
-![Alt Text](https://j.gifs.com/oZjzQA.gif)
+![Workout List](https://j.gifs.com/oZjzQA.gif)
 
 - User can see the previously created workout
 
-![Alt Text](https://j.gifs.com/GRMm5r.gif)
+![See Workout](https://j.gifs.com/GRMm5r.gif)
 
 - User can add a new workout with a title and add exercises with a names, descriptions, time and images
   
- ![Alt Text](https://j.gifs.com/OgPxyB.gif)
+ ![Add Workout](https://j.gifs.com/OgPxyB.gif)
   
-- User can edit workouts
-- User can delete workouts
-- User can start a workout and see the exercises with a timer, changing colour bar connected with the timer automatically.
-- The exercise screens scroll automatically to the next exercise screen when the time is up
-- There is a skip button available to skip exercises
+- User can edit and delete workouts
+
+![Edit Workout](https://j.gifs.com/6WB1RL.gif)
+
+- User can start a workout and see the exercises with a timer, changing colour bar connected with the timer automatically
+  The exercise screens scroll automatically to the next exercise screen when the time is up
+  There is a skip button available to skip exercises
+
+![Start Workout](https://j.gifs.com/oZjzVA.gif)
+
+
 - At the end of the workout you see the last celebratory screen
+
+![End Workout](https://j.gifs.com/LZvr7p.gif)
+
 - User can log out
+
+![Lot Out](https://j.gifs.com/Y7yLWO.gif)
 
 ## How to run this app
 
